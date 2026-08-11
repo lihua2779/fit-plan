@@ -542,13 +542,13 @@ function renderStats(input, targets) {
 }
 
 function renderTraining(plan) {
-  const container = document.getElementById('tab-training');
+  const container = document.getElementById('trainingContent');
   const intro = `
     <div class="plan-intro">
       <h3>周训练安排 · ${plan.splitLabel}</h3>
       <p>${plan.splitDesc}</p>
       <p>${plan.days.map((d) => `第 ${d.dayIndex} 天：${d.title}`).join(' · ')}，其余为休息日（可安排散步或拉伸）。</p>
-      <p class="demo-note">每个动作下方配有动态演示 GIF（来源：开源动作库 ExerciseGymGifsDB，见 README 署名）。</p>
+      <p class="demo-note">点击「Day 1 / Day 2…」展开当天训练；每行右侧 ⏱ 可开启组间计时器。动作下方为动态演示 GIF（来源：开源动作库 ExerciseGymGifsDB）。</p>
     </div>
     <div class="tip-box">
       ${plan.tips.map((t) => `<p>• ${t}</p>`).join('')}
@@ -575,36 +575,45 @@ function renderTraining(plan) {
     </div>
   `;
 
-  const days = plan.days.map((d) => `
-    <div class="day-card">
-      <h4>Day ${d.dayIndex} · ${d.title}</h4>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>#</th><th>动作</th><th>目标肌群</th><th>组数 × 次数</th><th>组间休息</th><th>要点</th></tr>
-          </thead>
-          <tbody>
-            ${d.exercises.map((ex, i) => `
-              ${(() => {
+  const restSeconds = (rest) => {
+    const m = String(rest).match(/(\d+)/);
+    return m ? Number(m[1]) : 90;
+  };
+
+  const days = plan.days.map((d, di) => `
+    <div class="day-card${di === 0 ? ' open' : ''}" data-day="${d.dayIndex}">
+      <button type="button" class="day-head" aria-expanded="${di === 0}" aria-controls="day-body-${d.dayIndex}">
+        <span>Day ${d.dayIndex} · ${d.title}</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="day-body" id="day-body-${d.dayIndex}">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>#</th><th>动作</th><th>目标肌群</th><th>组数 × 次数</th><th>组间休息</th><th>计时</th><th>要点</th></tr>
+            </thead>
+            <tbody>
+              ${d.exercises.map((ex, i) => {
                 const motionId = motionFor(ex.name);
                 const src = motionId ? EXERCISE_IMAGES[motionId] : null;
                 const demoHtml = src
-                  ? `<span class="demo-gif-wrap"><img class="demo-gif" src="${src}" alt="${ex.name} 动作演示" loading="lazy"></span>`
+                  ? `<span class="demo-gif-wrap"><img class="demo-gif" src="${src}" alt="${ex.name} 动作演示" loading="lazy" decoding="async"></span>`
                   : '';
                 return `
               <tr>
                 <td>${i + 1}</td>
                 <td class="strong">${ex.name}${demoHtml}</td>
                 <td>${ex.muscle}</td>
-                <td>${ex.sets} × ${ex.reps}</td>
+                <td class="sets-reps">${ex.sets} × ${ex.reps}</td>
                 <td>${ex.rest}</td>
+                <td><button type="button" class="timer-btn" data-rest="${restSeconds(ex.rest)}" aria-label="为 ${ex.name} 开启组间计时器">⏱</button></td>
                 <td class="tip-cell">${ex.tip}</td>
               </tr>
                 `;
-              })()}
-            `).join('')}
-          </tbody>
-        </table>
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   `).join('');
@@ -613,7 +622,7 @@ function renderTraining(plan) {
 }
 
 function renderDiet(dietPlan, targets, input) {
-  const container = document.getElementById('tab-diet');
+  const container = document.getElementById('dietContent');
   const proteinRange = input.goal === 'cut'
     ? '1.8–2.7 g/kg（减脂期保留肌肉）'
     : input.goal === 'bulk'
@@ -659,11 +668,54 @@ function renderDiet(dietPlan, targets, input) {
 }
 
 function renderFoods() {
-  const container = document.getElementById('tab-foods');
+  const container = document.getElementById('foodsContent');
   container.innerHTML = `
     <div class="plan-intro">
       <h3>常见食物营养参考</h3>
       <p>以「份」为单位估算，方便你自由组合每天的蛋白质、碳水和脂肪。实际数值会因做法与品牌略有差异。</p>
+    </div>
+    <div class="panel">
+      <h3>食材计算器</h3>
+      <p class="demo-note">选择食材并输入重量，自动计算营养（自定义食材按每 100g 营养换算）。</p>
+      <form class="food-calc-form" id="foodCalcForm">
+        <label class="field">
+          <span class="field-label">食材</span>
+          <select id="foodCalcSelect"></select>
+        </label>
+        <label class="field">
+          <span class="field-label">重量（g）</span>
+          <input type="number" id="foodCalcWeight" min="1" max="2000" value="100" required />
+        </label>
+        <button type="submit" class="btn btn-primary">计算</button>
+      </form>
+      <div class="food-calc-result" id="foodCalcResult"></div>
+    </div>
+    <div class="panel">
+      <h3>添加自定义食材（每 100g 营养）</h3>
+      <form class="custom-food-form" id="customFoodForm">
+        <label class="field">
+          <span class="field-label">名称</span>
+          <input type="text" id="cfName" required placeholder="如：即食鸡胸" />
+        </label>
+        <label class="field">
+          <span class="field-label">蛋白质（g）</span>
+          <input type="number" id="cfProtein" step="0.1" min="0" required />
+        </label>
+        <label class="field">
+          <span class="field-label">碳水（g）</span>
+          <input type="number" id="cfCarbs" step="0.1" min="0" required />
+        </label>
+        <label class="field">
+          <span class="field-label">脂肪（g）</span>
+          <input type="number" id="cfFat" step="0.1" min="0" required />
+        </label>
+        <label class="field">
+          <span class="field-label">热量（kcal，可留空自动算）</span>
+          <input type="number" id="cfKcal" step="1" min="0" placeholder="自动" />
+        </label>
+        <button type="submit" class="btn btn-primary">添加</button>
+      </form>
+      <ul class="custom-food-list" id="customFoodList"></ul>
     </div>
     <div class="table-wrap">
       <table>
@@ -752,17 +804,74 @@ function notifyStatusText() {
   return '未开启桌面提醒。开启后浏览器会定时检查训练日程并弹出通知；导出 .ics 可导入手机 / 电脑系统日历，即使页面关闭也能提醒。';
 }
 
+/* ---------------- 训练打卡 ---------------- */
+
+const ENCOURAGE = [
+  '太棒了！今天又坚持练了一组 💪',
+  '打卡成功！离目标又近了一步 🔥',
+  '自律的你最帅/最美，继续保持！',
+  '今天的汗水不会白流，加油！',
+  '完成打卡，奖励自己一杯水吧 💧',
+];
+
+function getCheckins() {
+  try {
+    return JSON.parse(localStorage.getItem('fitplan-checkins')) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveCheckins(obj) {
+  try {
+    localStorage.setItem('fitplan-checkins', JSON.stringify(obj));
+  } catch (e) { /* 忽略 */ }
+}
+
+function dateKey(d) {
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+/* 连续打卡天数：从今天（或昨天，允许一天宽限）往前数 */
+function calcStreak() {
+  const checkins = getCheckins();
+  const today = new Date();
+  let streak = 0;
+  let cursor = new Date(today);
+  if (!checkins[dateKey(cursor)]) cursor.setDate(cursor.getDate() - 1);
+  while (checkins[dateKey(cursor)]) {
+    streak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return streak;
+}
+
+function toggleCheckin(dateStr) {
+  const checkins = getCheckins();
+  if (checkins[dateStr]) {
+    delete checkins[dateStr];
+  } else {
+    checkins[dateStr] = 1;
+    showToast(ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)]);
+  }
+  saveCheckins(checkins);
+  renderCalendar(currentPlan);
+}
+
 function renderCalendar(plan) {
   if (!reminderSettings.customized) {
     reminderSettings.weekdays = [...DEFAULT_WEEKDAYS[plan.days.length]];
   }
-  const container = document.getElementById('tab-calendar');
+  const container = document.getElementById('calendarContent');
   const sortedWeekdays = [...reminderSettings.weekdays].sort((a, b) => a - b);
   const weekdayPlan = {};
   plan.days.forEach((d, i) => {
     if (sortedWeekdays[i] !== undefined) weekdayPlan[sortedWeekdays[i]] = d;
   });
   reminderSettings.weekdayPlan = weekdayPlan;
+  const checkins = getCheckins();
+  const streak = calcStreak();
 
   const first = new Date(calendarYear, calendarMonth, 1);
   const offset = (first.getDay() + 6) % 7; // 距周一的天数
@@ -777,17 +886,24 @@ function renderCalendar(plan) {
     const wd = (d.getDay() + 6) % 7;
     const planDay = weekdayPlan[wd];
     const isToday = d.toDateString() === today.toDateString();
+    const key = dateKey(d);
+    const checked = !!checkins[key];
     cells += `
-      <div class="cal-cell${inMonth ? '' : ' muted'}${isToday ? ' today' : ''}">
-        <span class="cal-date">${d.getDate()}</span>
-        ${planDay ? `<span class="cal-workout">${planDay.title.split('（')[0]}</span>` : ''}
-      </div>`;
+      ${planDay
+        ? `<button type="button" class="cal-cell train-cell${inMonth ? '' : ' muted'}${isToday ? ' today' : ''}${checked ? ' checked' : ''}" data-date="${key}" aria-pressed="${checked}" title="点击打卡/取消">
+            <span class="cal-date">${d.getDate()}</span>
+            <span class="cal-workout">${planDay.title.split('（')[0]}</span>
+            <span class="cal-check">${checked ? '✓ 已练' : ''}</span>
+          </button>`
+        : `<div class="cal-cell${inMonth ? '' : ' muted'}${isToday ? ' today' : ''}">
+            <span class="cal-date">${d.getDate()}</span>
+          </div>`}`;
   }
 
   container.innerHTML = `
     <div class="plan-intro">
       <h3>训练日历</h3>
-      <p>训练计划已按你选定的训练日排进日历（每周循环），今天会自动高亮。</p>
+      <p>训练计划已按你选定的训练日排进日历（每周循环），今天自动高亮；点击训练日可打卡，连续打卡 <b>${streak}</b> 天。</p>
     </div>
     <div class="cal-card">
       <div class="cal-head">
@@ -846,6 +962,10 @@ function bindCalendarEvents() {
       }
       renderCalendar(currentPlan);
     });
+  });
+
+  document.querySelectorAll('.train-cell').forEach((btn) => {
+    btn.addEventListener('click', () => toggleCheckin(btn.dataset.date));
   });
 
   document.querySelectorAll('.wd-btn').forEach((btn) => {
@@ -950,6 +1070,11 @@ function exportIcs(plan) {
         `RRULE:FREQ=WEEKLY;BYDAY=${WEEKDAY_ICS[wd]};COUNT=52`,
         `SUMMARY:健身训练 · ${day.title.split('（')[0]}`,
         `DESCRIPTION:${desc.replace(/[,;\\]/g, '\\$&')}`,
+        'BEGIN:VALARM',
+        `ACTION:DISPLAY`,
+        `DESCRIPTION:训练提醒`,
+        `TRIGGER:-PT${reminderSettings.leadMin}M`,
+        'END:VALARM',
         'END:VEVENT',
       ].join('\r\n');
     })
@@ -961,6 +1086,7 @@ function exportIcs(plan) {
     'PRODID:-//FitPlan//Training//CN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
+    'X-WR-CALNAME:FitPlan 健身训练',
     ...events,
     'END:VCALENDAR',
   ].join('\r\n');
@@ -988,10 +1114,10 @@ function generate() {
   renderTraining(workout);
   renderDiet(diet, targets, input);
   renderFoods();
+  populateFoodUI();
   renderCalendar(workout);
 
-  document.getElementById('resultsPanel').hidden = false;
-  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('homeResults').hidden = false;
   document.getElementById('saveNote').textContent = '计划已生成并自动保存在本机浏览器中';
   try {
     localStorage.setItem('fitplan-profile', JSON.stringify(input));
@@ -1000,30 +1126,461 @@ function generate() {
   }
 }
 
+/* ---------------- 导航 ---------------- */
+
+function switchView(view) {
+  document.querySelectorAll('.view').forEach((v) => v.classList.toggle('active', v.id === 'view-' + view));
+  document.querySelectorAll('.nav-btn').forEach((b) => b.classList.toggle('active', b.dataset.view === view));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------------- Toast 提示 ---------------- */
+
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, 2600);
+}
+
+/* ---------------- 组间计时器 ---------------- */
+
+const timerState = { seconds: 90, remain: 90, running: false, interval: null };
+let timerAudioCtx = null;
+
+function beep() {
+  try {
+    if (!timerAudioCtx) timerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = timerAudioCtx;
+    [0, 0.25, 0.5].forEach((t) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime + t);
+      gain.gain.exponentialRampToValueAtTime(0.4, ctx.currentTime + t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.18);
+      osc.start(ctx.currentTime + t);
+      osc.stop(ctx.currentTime + t + 0.2);
+    });
+  } catch (e) { /* 忽略 */ }
+}
+
+function renderTimer() {
+  const disp = document.getElementById('timerDisplay');
+  disp.textContent = timerState.remain;
+  disp.classList.toggle('running', timerState.running);
+  const toggle = document.getElementById('timerToggle');
+  toggle.textContent = timerState.running ? '暂停' : (timerState.remain < timerState.seconds ? '继续' : '开始');
+  document.querySelectorAll('.timer-preset').forEach((b) => {
+    b.classList.toggle('active', Number(b.dataset.sec) === timerState.seconds);
+  });
+}
+
+function stopTimer() {
+  if (timerState.interval) clearInterval(timerState.interval);
+  timerState.interval = null;
+  timerState.running = false;
+}
+
+function openTimer(seconds) {
+  stopTimer();
+  timerState.seconds = seconds || 90;
+  timerState.remain = timerState.seconds;
+  renderTimer();
+  document.getElementById('timerOverlay').hidden = false;
+}
+
+function closeTimer() {
+  stopTimer();
+  document.getElementById('timerOverlay').hidden = true;
+}
+
+function toggleTimer() {
+  if (timerState.running) {
+    stopTimer();
+    renderTimer();
+    return;
+  }
+  timerState.running = true;
+  renderTimer();
+  timerState.interval = setInterval(() => {
+    timerState.remain -= 1;
+    if (timerState.remain <= 0) {
+      timerState.remain = 0;
+      stopTimer();
+      beep();
+      showToast('休息结束，开始下一组！💪');
+    }
+    renderTimer();
+  }, 1000);
+}
+
+/* ---------------- 自定义食材 ---------------- */
+
+/* 常见食材每 100g 营养（供计算器使用） */
+const NUTRIENT_100G = {
+  '鸡胸肉（熟）': { p: 27, c: 0, f: 3, kcal: 133 },
+  '瘦牛肉（熟）': { p: 26, c: 0, f: 10, kcal: 200 },
+  '三文鱼': { p: 20, c: 0, f: 13, kcal: 208 },
+  '虾仁': { p: 24, c: 0, f: 0.3, kcal: 99 },
+  '鸡蛋': { p: 13, c: 1, f: 10, kcal: 144 },
+  '北豆腐': { p: 8, c: 4, f: 4, kcal: 84 },
+  '全脂牛奶': { p: 3.2, c: 4.8, f: 3.3, kcal: 61 },
+  '希腊酸奶': { p: 10, c: 4, f: 0.4, kcal: 59 },
+  '乳清蛋白粉': { p: 80, c: 10, f: 5, kcal: 400 },
+  '米饭（熟）': { p: 2.6, c: 26, f: 0.3, kcal: 116 },
+  '杂粮饭（熟）': { p: 3.5, c: 23, f: 0.7, kcal: 112 },
+  '燕麦（干）': { p: 16.9, c: 66, f: 6.9, kcal: 389 },
+  '红薯': { p: 1.6, c: 20, f: 0.1, kcal: 86 },
+  '全麦面包': { p: 10, c: 47, f: 4, kcal: 260 },
+  '香蕉': { p: 1.4, c: 22, f: 0.2, kcal: 93 },
+  '苹果': { p: 0.3, c: 14, f: 0.2, kcal: 52 },
+  '西兰花': { p: 4.1, c: 4.3, f: 0.6, kcal: 36 },
+  '菠菜': { p: 2.9, c: 3.6, f: 0.4, kcal: 23 },
+  '橄榄油': { p: 0, c: 0, f: 100, kcal: 900 },
+  '杏仁': { p: 21, c: 21, f: 50, kcal: 579 },
+  '花生酱': { p: 25, c: 22, f: 50, kcal: 588 },
+  '西瓜': { p: 0.6, c: 7.5, f: 0.1, kcal: 30 },
+};
+
+function getCustomFoods() {
+  try { return JSON.parse(localStorage.getItem('fitplan-custom-foods')) || []; } catch (e) { return []; }
+}
+
+function saveCustomFoods(list) {
+  try { localStorage.setItem('fitplan-custom-foods', JSON.stringify(list)); } catch (e) { /* 忽略 */ }
+}
+
+function populateFoodUI() {
+  const sel = document.getElementById('foodCalcSelect');
+  if (!sel) return;
+  const names = [...Object.keys(NUTRIENT_100G)];
+  getCustomFoods().forEach((f) => names.push(f.name));
+  sel.innerHTML = names.map((n) => `<option value="${n.replace(/"/g, '&quot;')}">${n}</option>`).join('');
+  renderCustomFoodList();
+}
+
+function renderCustomFoodList() {
+  const ul = document.getElementById('customFoodList');
+  if (!ul) return;
+  const list = getCustomFoods();
+  ul.innerHTML = list.length
+    ? list.map((f, i) => `
+        <li class="custom-food-item">
+          <span><b>${f.name}</b> · 每100g：蛋白 ${f.p}g / 碳水 ${f.c}g / 脂肪 ${f.f}g / ${f.kcal} kcal</span>
+          <button type="button" class="btn btn-ghost btn-sm" data-del-food="${i}" aria-label="删除 ${f.name}">删除</button>
+        </li>`).join('')
+    : '<li class="demo-note">还没有自定义食材，先添加一个吧。</li>';
+}
+
+function addCustomFood(name, p, c, f, kcal) {
+  const list = getCustomFoods();
+  list.push({ name, p, c, f, kcal: kcal || Math.round(p * 4 + c * 4 + f * 9) });
+  saveCustomFoods(list);
+  populateFoodUI();
+}
+
+function calcFood(name, weight) {
+  const custom = getCustomFoods().find((x) => x.name === name);
+  const n = custom || NUTRIENT_100G[name];
+  if (!n || !weight || weight <= 0) return null;
+  const k = weight / 100;
+  return {
+    kcal: Math.round(n.kcal * k),
+    protein: (n.p * k).toFixed(1),
+    carbs: (n.c * k).toFixed(1),
+    fat: (n.f * k).toFixed(1),
+  };
+}
+
+/* ---------------- 体重 / 体脂追踪 ---------------- */
+
+function getWeights() {
+  try { return JSON.parse(localStorage.getItem('fitplan-weight')) || []; } catch (e) { return []; }
+}
+
+function saveWeights(list) {
+  try { localStorage.setItem('fitplan-weight', JSON.stringify(list)); } catch (e) { /* 忽略 */ }
+}
+
+function renderWeight() {
+  const wrap = document.getElementById('weightList');
+  if (!wrap) return;
+  const list = getWeights().sort((a, b) => (a.date < b.date ? -1 : 1));
+  wrap.innerHTML = list.length
+    ? [...list].reverse().map((w) => `
+        <div class="weight-item">
+          <span>${w.date}${w.bf != null ? ` · 体脂 ${w.bf}%` : ''}</span>
+          <b>${w.kg} kg</b>
+        </div>`).join('')
+    : '<p class="demo-note">还没有记录，输入日期和体重后点「记录」。</p>';
+
+  const tip = document.getElementById('weightTip');
+  let expected = null;
+  try {
+    const profile = JSON.parse(localStorage.getItem('fitplan-profile'));
+    if (profile && profile.goal === 'cut') {
+      const t = calcTargets(profile);
+      const deficit = t.tdee - t.calories;
+      expected = deficit / 7700; // 约 7700 kcal ≈ 1kg 脂肪
+      tip.textContent = `当前热量缺口约 ${deficit} kcal/天，按理论预期每周约减 ${(expected * 7).toFixed(2)} kg；曲线中的橙色虚线为参考线。`;
+    } else {
+      tip.textContent = '当前目标为增肌/保持，体重参考线不适用，观察长期趋势即可。';
+    }
+  } catch (e) { tip.textContent = ''; }
+
+  drawWeightChart(list, expected);
+}
+
+function drawWeightChart(list, expectedKgPerDay) {
+  const canvas = document.getElementById('weightChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  if (!list.length) return;
+
+  const padL = 44, padR = 16, padT = 16, padB = 28;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  ctx.font = '12px sans-serif';
+  ctx.fillStyle = '#8b9b93';
+  ctx.strokeStyle = '#c9d6d0';
+  ctx.lineWidth = 1;
+
+  const kgs = list.map((w) => w.kg);
+  let yMin = Math.floor(Math.min(...kgs) - 1);
+  let yMax = Math.ceil(Math.max(...kgs) + 1);
+  if (yMax - yMin < 4) { const mid = (yMax + yMin) / 2; yMin = mid - 2; yMax = mid + 2; }
+  const y = (v) => padT + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
+  const x = (i) => (list.length === 1 ? padL + innerW / 2 : padL + (i / (list.length - 1)) * innerW);
+
+  for (let v = yMin; v <= yMax; v++) {
+    const yy = y(v);
+    ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(W - padR, yy); ctx.stroke();
+    ctx.fillText(String(v), 8, yy + 4);
+  }
+  ctx.textAlign = 'center';
+  ctx.fillText(list[0].date, padL, H - 8);
+  if (list.length > 1) ctx.fillText(list[list.length - 1].date, W - padR, H - 8);
+
+  if (expectedKgPerDay && list.length > 1) {
+    ctx.save();
+    ctx.setLineDash([6, 5]);
+    ctx.strokeStyle = '#f59e0b';
+    ctx.beginPath();
+    list.forEach((w, i) => {
+      const px = x(i);
+      const days = (new Date(w.date) - new Date(list[0].date)) / 86400000;
+      const py = y(list[0].kg - expectedKgPerDay * days);
+      i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    });
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  ctx.strokeStyle = '#0e9f6e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  list.forEach((w, i) => { const px = x(i), py = y(w.kg); i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py); });
+  ctx.stroke();
+  list.forEach((w, i) => {
+    const px = x(i), py = y(w.kg);
+    ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2); ctx.fillStyle = '#0e9f6e'; ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI * 2); ctx.fill();
+  });
+}
+
+/* ---------------- 设置与导出 ---------------- */
+
+function setTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  try { localStorage.setItem('fitplan-theme', dark ? 'dark' : 'light'); } catch (e) { /* 忽略 */ }
+  const btn = document.getElementById('themeBtn');
+  if (btn) {
+    btn.textContent = dark ? '切换到浅色' : '切换到深色';
+    btn.setAttribute('aria-pressed', String(dark));
+  }
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function exportCsv() {
+  const rows = [['名称', '份量', '热量(kcal)', '蛋白质(g)', '碳水(g)', '脂肪(g)']];
+  FOOD_TABLE.forEach((f) => rows.push([f.name, f.amount, f.kcal, f.protein, f.carbs, f.fat]));
+  getCustomFoods().forEach((f) => rows.push([f.name, '100g', f.kcal, f.p, f.c, f.f]));
+  const csv = '\ufeff' + rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+  downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8' }), 'fitplan-foods.csv');
+}
+
+function printMode(mode) {
+  document.body.classList.remove('print-training', 'print-diet');
+  if (mode) document.body.classList.add('print-' + mode);
+  window.print();
+  setTimeout(() => document.body.classList.remove('print-training', 'print-diet'), 1500);
+}
+
+function clearAllData() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('fitplan-')) keys.push(k);
+  }
+  keys.forEach((k) => localStorage.removeItem(k));
+  location.reload();
+}
+
 /* ---------------- 事件绑定 ---------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 导航切换（事件委托，保证始终生效）
+  document.addEventListener('click', (e) => {
+    const nav = e.target.closest('.nav-btn');
+    if (nav) {
+      switchView(nav.dataset.view);
+      return;
+    }
+    const goto = e.target.closest('[data-goto]');
+    if (goto) switchView(goto.dataset.goto);
+  });
+
+  // 全局错误提示：任何运行时错误都会显示在首页表单下方
+  window.addEventListener('error', (e) => {
+    const note = document.getElementById('saveNote');
+    if (note && !note.textContent) note.textContent = '页面出错：' + e.message;
+  });
+
   // 分段选择按钮
   document.querySelectorAll('.seg-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (btn.dataset.font) {
+        const size = Number(btn.dataset.font);
+        document.documentElement.style.fontSize = size + 'px';
+        try { localStorage.setItem('fitplan-font', String(size)); } catch (e) { /* 忽略 */ }
+        document.querySelectorAll('#fontSeg .seg-btn').forEach((b) => b.classList.toggle('active', b === btn));
+        return;
+      }
       document.querySelectorAll(`.seg-btn[data-target="${btn.dataset.target}"]`)
         .forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
     });
   });
 
-  // 标签页切换
-  document.querySelectorAll('.tab').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach((c) => c.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
-    });
+  document.getElementById('generateBtn').addEventListener('click', generate);
+
+  // 训练折叠 + 计时器按钮（事件委托）
+  document.addEventListener('click', (e) => {
+    const head = e.target.closest('.day-head');
+    if (head) {
+      const card = head.closest('.day-card');
+      const open = card.classList.toggle('open');
+      head.setAttribute('aria-expanded', String(open));
+      return;
+    }
+    const timerBtn = e.target.closest('.timer-btn');
+    if (timerBtn) {
+      openTimer(Number(timerBtn.dataset.rest));
+    }
   });
 
-  document.getElementById('generateBtn').addEventListener('click', generate);
-  document.getElementById('printBtn').addEventListener('click', () => window.print());
+  // 计时器
+  document.querySelectorAll('.timer-preset').forEach((b) => {
+    b.addEventListener('click', () => {
+      timerState.seconds = Number(b.dataset.sec);
+      timerState.remain = timerState.seconds;
+      stopTimer();
+      renderTimer();
+    });
+  });
+  document.getElementById('timerToggle').addEventListener('click', toggleTimer);
+  document.getElementById('timerReset').addEventListener('click', () => {
+    stopTimer();
+    timerState.remain = timerState.seconds;
+    renderTimer();
+  });
+  document.getElementById('timerClose').addEventListener('click', closeTimer);
+
+  // 自定义食材（表单每次渲染后重建，用事件委托）
+  document.addEventListener('submit', (e) => {
+    if (e.target.id === 'foodCalcForm') {
+      e.preventDefault();
+      const name = document.getElementById('foodCalcSelect').value;
+      const weight = Number(document.getElementById('foodCalcWeight').value);
+      const r = calcFood(name, weight);
+      const out = document.getElementById('foodCalcResult');
+      out.textContent = r
+        ? `${name} ${weight}g：约 ${r.kcal} kcal · 蛋白 ${r.protein}g · 碳水 ${r.carbs}g · 脂肪 ${r.fat}g`
+        : '未找到该食材';
+      return;
+    }
+    if (e.target.id === 'customFoodForm') {
+      e.preventDefault();
+      const name = document.getElementById('cfName').value.trim();
+      const p = Number(document.getElementById('cfProtein').value);
+      const c = Number(document.getElementById('cfCarbs').value);
+      const f = Number(document.getElementById('cfFat').value);
+      const kcal = Number(document.getElementById('cfKcal').value) || 0;
+      if (!name) return;
+      addCustomFood(name, p, c, f, kcal);
+      e.target.reset();
+      showToast('已添加：' + name);
+    }
+  });
+  document.addEventListener('click', (e) => {
+    const del = e.target.closest('[data-del-food]');
+    if (del) {
+      const i = Number(del.dataset.delFood);
+      const list = getCustomFoods();
+      list.splice(i, 1);
+      saveCustomFoods(list);
+      populateFoodUI();
+      showToast('已删除自定义食材');
+    }
+  });
+
+  // 体重记录
+  const weightForm = document.getElementById('weightForm');
+  if (weightForm) {
+    document.getElementById('weightDate').value = dateKey(new Date());
+    weightForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const date = document.getElementById('weightDate').value;
+      const kg = Number(document.getElementById('weightKg').value);
+      const bfRaw = document.getElementById('bodyFat').value;
+      const bf = bfRaw === '' ? null : Number(bfRaw);
+      if (!date || !kg) return;
+      const list = getWeights().filter((w) => w.date !== date);
+      list.push({ date, kg, bf });
+      saveWeights(list);
+      document.getElementById('weightKg').value = '';
+      document.getElementById('bodyFat').value = '';
+      renderWeight();
+      showToast(`已记录 ${date} 体重 ${kg}kg`);
+    });
+  }
+
+  // 设置
+  document.getElementById('themeBtn').addEventListener('click', () => {
+    setTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+  });
+  document.getElementById('clearDataBtn').addEventListener('click', () => {
+    if (confirm('确定清除全部本地数据吗？包括身体数据、自定义食材、体重记录与打卡。')) clearAllData();
+  });
+  document.getElementById('printTrainingBtn').addEventListener('click', () => printMode('training'));
+  document.getElementById('printDietBtn').addEventListener('click', () => printMode('diet'));
+  document.getElementById('csvExportBtn').addEventListener('click', exportCsv);
+  document.getElementById('icsExportBtn').addEventListener('click', () => exportIcs(currentPlan));
 
   // 恢复上次保存的资料
   try {
@@ -1059,6 +1616,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // 每 30 秒检查一次提醒（训练时间前触发桌面通知）
   setInterval(checkReminders, 30000);
 
+  renderWeight();
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+
   // 首次进入直接生成一次示例计划
-  generate();
+  try {
+    generate();
+  } catch (err) {
+    const note = document.getElementById('saveNote');
+    if (note) note.textContent = '初始化出错：' + err.message;
+  }
 });
