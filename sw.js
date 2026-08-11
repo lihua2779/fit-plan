@@ -1,5 +1,5 @@
 /* FitPlan Service Worker：缓存应用外壳与图片，支持离线使用 */
-const CACHE = 'fitplan-v1';
+const CACHE = 'fitplan-v2';
 const CORE = [
   './',
   './index.html',
@@ -29,6 +29,20 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+
+  // HTML navigation: network-first so users always see the latest version
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(req, copy));
+          return res;
+        })
+        .catch(() => caches.match(req).then((hit) => hit || caches.match('./index.html')))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(req).then((hit) => {
