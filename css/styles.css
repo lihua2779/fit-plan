@@ -1393,6 +1393,11 @@ td.strong {
   .session-exercise {
     font-size: 1.6rem;
   }
+
+  .session-gif img {
+    width: 160px;
+    height: 160px;
+  }
 }
 
 /* ---------- 打印 ---------- */
@@ -1681,6 +1686,21 @@ td.strong {
   font-size: 2rem;
   font-weight: 800;
   line-height: 1.25;
+}
+
+.session-gif {
+  display: flex;
+  justify-content: center;
+}
+
+.session-gif img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px;
 }
 
 .session-meta {
