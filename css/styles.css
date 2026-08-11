@@ -3,19 +3,39 @@
    ============================================================ */
 
 :root {
-  --bg: #f3f5fb;
+  --bg: #f1f7f4;
   --card: #ffffff;
-  --text: #1e2433;
-  --text-soft: #5b6478;
-  --primary: #5b5bd6;
-  --primary-dark: #4740b8;
+  --text: #12211c;
+  --text-soft: #51635c;
+  --primary: #0e9f6e;
+  --primary-dark: #0b7a55;
   --accent: #f97316;
-  --border: #e6e9f2;
+  --border: #d9e7e0;
   --protein: #ef4444;
   --carbs: #f59e0b;
   --fat: #3b82f6;
-  --radius: 16px;
-  --shadow: 0 6px 24px rgba(30, 36, 51, 0.08);
+  --radius: 14px;
+  --shadow: 0 2px 10px rgba(18, 33, 28, 0.06);
+  --panel-bg: #fbfdfc;
+  --soft-bg: #eef6f2;
+  --hero-a: #0e9f6e;
+  --hero-b: #14b8a6;
+  --danger: #dc2626;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1513;
+  --card: #16201c;
+  --text: #e7efe9;
+  --text-soft: #9db0a6;
+  --primary: #2ecb90;
+  --primary-dark: #37b986;
+  --border: #2a3a33;
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  --panel-bg: #1a2621;
+  --soft-bg: #21302a;
+  --hero-a: #0b7a55;
+  --hero-b: #0e8f80;
 }
 
 * {
@@ -34,14 +54,15 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  padding-bottom: 86px;
 }
 
 /* ---------- 头部 ---------- */
 
 .hero {
-  background: linear-gradient(135deg, #5b5bd6 0%, #8b5cf6 55%, #f97316 130%);
+  background: linear-gradient(135deg, var(--hero-a) 0%, var(--hero-b) 75%, #0d9488 130%);
   color: #fff;
-  padding: 42px 24px 64px;
+  padding: 22px 20px 38px;
 }
 
 .hero-inner {
@@ -55,21 +76,21 @@ body {
 }
 
 .hero h1 {
-  font-size: 2rem;
+  font-size: 1.45rem;
   letter-spacing: 0.5px;
 }
 
 .hero h1 span {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   opacity: 0.9;
   margin-left: 10px;
 }
 
 .hero p {
-  margin-top: 8px;
+  margin-top: 4px;
   opacity: 0.92;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .hero-badges {
@@ -91,11 +112,15 @@ body {
 
 .container {
   max-width: 1080px;
-  margin: -36px auto 48px;
+  margin: 24px auto 48px;
   padding: 0 20px;
+  display: block;
+}
+
+#view-home.active {
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 24px;
+  gap: 32px;
   align-items: start;
 }
 
@@ -103,7 +128,7 @@ body {
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 24px;
+  padding: 28px;
 }
 
 .form-panel {
@@ -140,8 +165,8 @@ body {
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 14px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .field {
@@ -164,7 +189,7 @@ select {
   border-radius: 10px;
   font-size: 0.95rem;
   color: var(--text);
-  background: #fbfcff;
+  background: var(--panel-bg);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -185,7 +210,7 @@ select:focus {
   padding: 10px;
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: #fbfcff;
+  background: var(--panel-bg);
   cursor: pointer;
   font-size: 0.92rem;
   color: var(--text-soft);
@@ -244,12 +269,12 @@ select:focus {
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 14px;
+  gap: 16px;
   margin: 18px 0 14px;
 }
 
 .stat-card {
-  background: #f8f9fd;
+  background: var(--soft-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px;
@@ -361,12 +386,12 @@ select:focus {
 }
 
 .tip-box {
-  background: #fff8f0;
-  border: 1px solid #ffe0bd;
+  background: var(--soft-bg);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 18px;
   font-size: 0.88rem;
-  color: #7c4a03;
+  color: var(--text-soft);
   margin-bottom: 18px;
 }
 
@@ -378,7 +403,7 @@ select:focus {
 }
 
 .day-card h4 {
-  background: #f8f9fd;
+  background: var(--soft-bg);
   padding: 10px 16px;
   font-size: 0.95rem;
   border-bottom: 1px solid var(--border);
@@ -395,7 +420,7 @@ table {
 }
 
 th {
-  background: #f8f9fd;
+  background: var(--soft-bg);
   text-align: left;
   padding: 10px 12px;
   color: var(--text-soft);
@@ -452,7 +477,7 @@ td.strong {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px;
-  background: #fbfcff;
+  background: var(--panel-bg);
 }
 
 .meal-head {
@@ -491,16 +516,16 @@ td.strong {
 .disclaimer {
   margin-top: 22px;
   padding: 14px 16px;
-  background: #eef2ff;
+  background: var(--soft-bg);
   border-radius: 12px;
   font-size: 0.8rem;
-  color: #3730a3;
+  color: var(--text);
 }
 
 .refs {
   margin-top: 14px;
   padding: 14px 16px;
-  background: #fbfcff;
+  background: var(--panel-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
   font-size: 0.76rem;
@@ -526,7 +551,7 @@ td.strong {
   border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 16px;
-  background: #fbfcff;
+  background: var(--panel-bg);
 }
 
 .coverage-head {
@@ -554,7 +579,7 @@ td.strong {
 }
 
 .chip {
-  background: #eef2ff;
+  background: var(--soft-bg);
   border-radius: 999px;
   padding: 4px 12px;
   font-size: 0.82rem;
@@ -577,7 +602,7 @@ td.strong {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px;
-  background: #fbfcff;
+  background: var(--panel-bg);
 }
 
 .cal-head {
@@ -633,6 +658,24 @@ td.strong {
   gap: 4px;
 }
 
+.train-cell {
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+}
+
+.train-cell.checked {
+  border-color: var(--primary);
+  background: var(--soft-bg);
+}
+
+.cal-check {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 0.7rem;
+}
+
 .cal-cell.muted {
   background: transparent;
   border-color: transparent;
@@ -649,7 +692,7 @@ td.strong {
 }
 
 .cal-workout {
-  background: #eef2ff;
+  background: var(--soft-bg);
   color: var(--primary-dark);
   border-radius: 6px;
   padding: 2px 5px;
@@ -685,7 +728,7 @@ td.strong {
   width: 14px;
   height: 12px;
   border-radius: 4px;
-  background: #eef2ff;
+  background: var(--soft-bg);
 }
 
 .reminder-card {
@@ -693,7 +736,7 @@ td.strong {
   border-radius: 12px;
   padding: 14px 16px;
   margin-top: 16px;
-  background: #fbfcff;
+  background: var(--panel-bg);
 }
 
 .reminder-card h4 {
@@ -778,6 +821,439 @@ td.strong {
   padding: 18px 20px 36px;
 }
 
+/* ---------- 导航与视图 ---------- */
+
+.nav-btn {
+  min-width: 56px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.bottomnav {
+  display: flex;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+
+.bottomnav .nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 4px 2px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  min-height: 48px;
+}
+
+.nav-ico {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+  animation: view-fade 0.3s ease;
+}
+
+#view-home.active {
+  display: grid;
+  animation: view-fade 0.3s ease;
+}
+
+@keyframes view-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view.active,
+  #view-home.active {
+    animation: none;
+  }
+}
+
+/* ---------- 训练折叠卡片 ---------- */
+
+.day-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+.day-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--soft-bg);
+  border: none;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
+  min-height: 52px;
+  text-align: left;
+}
+
+.day-head .chev {
+  transition: transform 0.2s;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+
+.day-card.open .day-head .chev {
+  transform: rotate(180deg);
+}
+
+.day-body {
+  display: none;
+}
+
+.day-card.open .day-body {
+  display: block;
+}
+
+.sets-reps {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  white-space: nowrap;
+}
+
+.timer-btn {
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.timer-btn:hover {
+  border-color: var(--primary);
+}
+
+/* ---------- 全屏计时器 ---------- */
+
+.timer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 18, 15, 0.96);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+}
+
+.timer-title {
+  font-size: 1.2rem;
+  color: #9db0a6;
+}
+
+.timer-display {
+  font-size: clamp(5rem, 22vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-display.running {
+  color: #4ade80;
+}
+
+.timer-presets {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.timer-preset {
+  min-width: 64px;
+  min-height: 48px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 700;
+}
+
+.timer-preset.active {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.timer-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.timer-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+/* ---------- 快捷跳转 / 设置 ---------- */
+
+.quick-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+#view-training > * + *,
+#view-diet > * + * {
+  margin-top: 20px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.setting-row:last-of-type {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-weight: 700;
+}
+
+.setting-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.setting-row.danger .setting-label {
+  color: var(--danger);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-lg {
+  min-height: 52px;
+  font-size: 1.05rem;
+}
+
+/* ---------- 体重追踪 ---------- */
+
+.weight-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 14px;
+}
+
+.weight-chart-wrap {
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+#weightChart {
+  width: 100%;
+  height: auto;
+  min-width: 420px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.weight-tip {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+.weight-list {
+  display: grid;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.weight-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+/* ---------- 食材计算器 / 自定义食材 ---------- */
+
+.food-calc-form,
+.custom-food-form {
+  display: grid;
+  grid-template-columns: 1fr 120px auto;
+  gap: 10px;
+  align-items: end;
+  margin: 10px 0;
+}
+
+.food-calc-result {
+  background: var(--soft-bg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.custom-food-list {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.custom-food-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+/* ---------- 提示 toast ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  z-index: 120;
+  box-shadow: var(--shadow);
+  animation: toast-in 0.25s ease;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---------- 深色模式补充覆盖 ---------- */
+
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .cal-card,
+[data-theme="dark"] .reminder-card,
+[data-theme="dark"] .coverage,
+[data-theme="dark"] .meal-card,
+[data-theme="dark"] .refs {
+  background: var(--panel-bg);
+}
+
+[data-theme="dark"] .day-card h4,
+[data-theme="dark"] .day-head,
+[data-theme="dark"] th {
+  background: var(--soft-bg);
+  color: var(--text);
+}
+
+[data-theme="dark"] .cal-cell,
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] select,
+[data-theme="dark"] .seg-btn,
+[data-theme="dark"] .demo-gif {
+  background: var(--panel-bg);
+  color: var(--text);
+}
+
+[data-theme="dark"] .tip-box {
+  background: #2b2314;
+  border-color: #4a3b1d;
+  color: #f0d9a8;
+}
+
+[data-theme="dark"] .disclaimer {
+  background: #16241e;
+  color: #a7d8c2;
+}
+
+[data-theme="dark"] .chip,
+[data-theme="dark"] .cal-workout {
+  background: #1d3529;
+  color: #7fe3b8;
+}
+
+[data-theme="dark"] .hero h1 span,
+[data-theme="dark"] .hero p {
+  opacity: 0.95;
+}
+
 [hidden] {
   display: none !important;
 }
@@ -785,7 +1261,7 @@ td.strong {
 /* ---------- 响应式 ---------- */
 
 @media (max-width: 900px) {
-  .container {
+  #view-home {
     grid-template-columns: 1fr;
   }
 
@@ -826,28 +1302,42 @@ td.strong {
 @media print {
   body {
     background: #fff;
+    padding: 0;
   }
 
   .hero {
-    padding: 20px 0;
+    padding: 12px 0;
     background: #fff;
     color: var(--text);
     border-bottom: 2px solid var(--primary);
   }
 
-  .hero-badges,
+  .hero p,
+  .bottomnav,
   .form-panel,
-  .tabs,
-  #printBtn,
+  #view-home,
+  #view-weight,
+  #view-settings,
   .disclaimer,
-  .footer {
+  .refs,
+  .footer,
+  .timer-overlay,
+  .toast,
+  .quick-links,
+  .setting-row,
+  #settingsStatus {
+    display: none !important;
+  }
+
+  /* 独立导出：训练计划表 / 每日饮食表 */
+  body.print-training .view:not(#view-training),
+  body.print-diet .view:not(#view-diet) {
     display: none !important;
   }
 
   .container {
     margin: 0;
     padding: 0;
-    grid-template-columns: 1fr;
   }
 
   .panel {
@@ -856,11 +1346,23 @@ td.strong {
     padding: 0;
   }
 
-  .tab-content {
+  .view,
+  .view.active {
     display: block !important;
   }
 
-  .tab-content#tab-calendar {
+  .day-body,
+  .day-card.open .day-body {
+    display: block !important;
+  }
+
+  .day-head {
+    background: #f2f2f2;
+    color: #000;
+  }
+
+  .day-head .chev,
+  .timer-btn {
     display: none !important;
   }
 
@@ -871,5 +1373,13 @@ td.strong {
 
   .stat-card {
     break-inside: avoid;
+  }
+
+  .demo-gif {
+    display: none !important;
+  }
+
+  @page {
+    margin: 12mm;
   }
 }
