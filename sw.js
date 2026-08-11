@@ -1,5 +1,5 @@
 /* FitPlan Service Worker：缓存应用外壳与图片，支持离线使用 */
-const CACHE = 'fitplan-v4';
+const CACHE = 'fitplan-v5';
 const CORE = [
   './',
   './index.html',
