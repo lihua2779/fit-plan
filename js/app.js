@@ -963,7 +963,7 @@ function renderTraining(plan) {
       <h3>周训练安排 · ${plan.splitLabel}</h3>
       <p>${plan.splitDesc}</p>
       <p>${plan.days.map((d) => `第 ${d.dayIndex} 天：${d.title}`).join(' · ')}，其余为休息日（可安排散步或拉伸）。</p>
-      <p class="demo-note">点击「Day 1 / Day 2…」展开当天训练；点「开始训练」进入沉浸式模式，按顺序逐动作推进；每行 ⏱ 可单独开启组间计时器；「编辑」可修改组数、次数或替换动作。</p>
+      <p class="demo-note">点击「Day 1 / Day 2…」展开当天训练；点「开始训练」进入沉浸式模式，按顺序逐动作推进；每行 ⏱ 可单独开启组间计时器；「编辑」可修改组数、次数或替换动作；动作下方为动态演示图（WebP，已懒加载）。</p>
     </div>
     <div class="tip-box">
       ${plan.tips.map((t) => `<p>• ${t}</p>`).join('')}
