@@ -920,14 +920,28 @@ td.strong {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 14px 16px;
+  padding: 10px 16px;
   background: var(--soft-bg);
-  border: none;
   font-size: 1rem;
   font-weight: 800;
   color: var(--text);
-  cursor: pointer;
   min-height: 52px;
+  text-align: left;
+}
+
+.day-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  font: inherit;
+  font-weight: 800;
+  color: var(--text);
+  cursor: pointer;
   text-align: left;
 }
 
@@ -1295,6 +1309,90 @@ td.strong {
   .stat-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  /* 训练表在手机端改为卡片式布局 */
+  .table-wrap {
+    overflow: visible;
+  }
+
+  .table-wrap thead {
+    display: none;
+  }
+
+  .table-wrap tbody tr {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: var(--card);
+  }
+
+  .table-wrap tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    border: none;
+    padding: 6px 0;
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+
+  .table-wrap tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--text-soft);
+    flex-shrink: 0;
+  }
+
+  .table-wrap tbody td:first-child::before {
+    content: '序号';
+  }
+
+  .table-wrap tbody td:has(.timer-btn)::before {
+    content: '计时';
+  }
+
+  .demo-gif {
+    width: 54px;
+    height: 54px;
+  }
+
+  /* 手机端按钮不小于 48px，方便训练中点击 */
+  .btn,
+  .nav-btn,
+  .timer-btn,
+  .cal-nav,
+  .wd-btn,
+  .seg-btn {
+    min-height: 48px;
+  }
+
+  .btn-sm {
+    min-height: 40px;
+  }
+
+  .day-head {
+    flex-wrap: wrap;
+  }
+
+  .day-head .start-session-btn {
+    min-height: 40px;
+  }
+
+  .coverage-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .session-exercise {
+    font-size: 1.6rem;
+  }
 }
 
 /* ---------- 打印 ---------- */
@@ -1322,10 +1420,20 @@ td.strong {
   .refs,
   .footer,
   .timer-overlay,
+  .session-overlay,
+  .edit-overlay,
   .toast,
   .quick-links,
   .setting-row,
-  #settingsStatus {
+  #settingsStatus,
+  .start-session-btn,
+  .row-actions,
+  .demo-gif-wrap,
+  .protein-src-btn,
+  .deficit-control,
+  .macro-range-note,
+  .coverage-actions,
+  .back-to-top {
     display: none !important;
   }
 
@@ -1382,4 +1490,378 @@ td.strong {
   @page {
     margin: 12mm;
   }
+}
+
+/* ============================================================
+   V2 增强：缺口滑块 / 沉浸训练 / 动作编辑 / 购物清单 / 回顶等
+   ============================================================ */
+
+.disclaimer-inline {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.deficit-control {
+  margin: 14px 0 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--soft-bg);
+}
+
+.deficit-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.deficit-head b {
+  color: var(--primary);
+  font-size: 1.05rem;
+}
+
+.deficit-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.deficit-hint {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  margin-top: 6px;
+}
+
+.macro-range-note {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  margin-top: 10px;
+}
+
+.macro-range-note .ok {
+  color: #16a34a;
+}
+
+.macro-range-note .warn {
+  color: #92400e;
+  background: #fef3c7;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.tip-mistake {
+  color: #b45309;
+  margin-top: 4px;
+}
+
+.row-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-danger-ghost {
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.coverage-actions {
+  margin-top: 10px;
+}
+
+.chip-risk {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.chip-risk b {
+  color: #b45309;
+}
+
+.warn-text {
+  color: #b45309;
+  font-weight: 600;
+}
+
+.protein-source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0 4px;
+}
+
+.protein-src-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.shopping-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 16px;
+  background: var(--card);
+}
+
+.shopping-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.shopping-head h4 {
+  font-size: 0.95rem;
+}
+
+.shopping-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 4px 18px;
+}
+
+.shopping-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.9rem;
+}
+
+.shopping-list b {
+  color: var(--primary-dark);
+  white-space: nowrap;
+}
+
+/* ---------- 沉浸式训练模式 ---------- */
+
+.session-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: linear-gradient(160deg, #0b1220, #10233a);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  gap: 16px;
+}
+
+.session-overlay .timer-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.session-day {
+  color: #7ee0b8;
+  font-size: 0.95rem;
+}
+
+.session-progress {
+  color: #9fb3c8;
+  font-size: 0.9rem;
+}
+
+.session-exercise {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.session-meta {
+  color: #9fb3c8;
+  font-size: 0.95rem;
+}
+
+.session-set {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #7ee0b8;
+}
+
+.session-rest {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-rest-label {
+  color: #9fb3c8;
+}
+
+.session-rest-time {
+  font-size: 4.5rem;
+  font-weight: 900;
+  color: #fbbf24;
+  line-height: 1;
+}
+
+.session-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.session-actions .btn {
+  min-width: 140px;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+/* ---------- 动作编辑浮层 ---------- */
+
+.edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.edit-overlay .timer-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.edit-grid {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 22px;
+  width: 100%;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-height: 78vh;
+  overflow: auto;
+  position: relative;
+}
+
+.edit-title {
+  grid-column: 1 / -1;
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+}
+
+.edit-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* ---------- 回顶按钮 / 目标体重 / 训练容量 ---------- */
+
+.back-to-top {
+  position: fixed;
+  right: 16px;
+  bottom: 78px;
+  z-index: 55;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.3rem;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.weight-target-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.volume-chart-wrap {
+  margin-top: 22px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  max-height: 220px;
+  overflow: auto;
+}
+
+.session-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: var(--soft-bg);
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.refs summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.refs summary::-webkit-details-marker {
+  display: none;
+}
+
+.refs summary::before {
+  content: '▸ ';
+  color: var(--primary);
+}
+
+.refs[open] summary::before {
+  content: '▾ ';
+}
+
+.refs summary h4 {
+  display: inline;
+}
+
+sup a {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+[data-theme="dark"] .edit-grid {
+  background: #15202b;
+}
+
+[data-theme="dark"] .session-overlay {
+  background: linear-gradient(160deg, #060b13, #0e1c2c);
 }
