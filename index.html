@@ -21,6 +21,34 @@
       } catch (e) { /* 忽略 */ }
     })();
   </script>
+  <script>
+    // 自动检测新版本：发现版本号变化时清理旧缓存并刷新，避免用户一直看到旧页面
+    (function () {
+      try {
+        if (!('caches' in window) || !navigator.serviceWorker) return;
+        fetch('version.txt?t=' + Date.now(), { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error('no version'); return r.text(); })
+          .then(function (v) {
+            v = (v || '').trim();
+            if (!v) return;
+            var key = 'fitplan-version';
+            var old = localStorage.getItem(key);
+            localStorage.setItem(key, v);
+            if (old && old !== v) {
+              Promise.all([
+                caches.keys().then(function (ks) {
+                  return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+                }),
+                navigator.serviceWorker.getRegistrations().then(function (rs) {
+                  return Promise.all(rs.map(function (r) { return r.unregister(); }));
+                })
+              ]).then(function () { location.reload(); });
+            }
+          })
+          .catch(function () { /* 离线或暂时失败时忽略 */ });
+      } catch (e) { /* 忽略 */ }
+    })();
+  </script>
 </head>
 <body>
   <header class="hero">
