@@ -6,10 +6,10 @@
   <title>FitPlan · 健身与饮食计划助手</title>
   <meta name="theme-color" content="#0e9f6e" />
   <meta name="description" content="根据身体数据自动生成个性化健身训练计划与饮食方案，支持体重追踪、训练打卡与日历提醒。" />
-  <link rel="manifest" href="manifest.webmanifest?v=20260811-03" />
+  <link rel="manifest" href="manifest.webmanifest?v=20260811-04" />
   <link rel="icon" type="image/png" href="img/icon-192.png" />
   <link rel="apple-touch-icon" href="img/icon-192.png" />
-  <link rel="stylesheet" href="css/styles.css?v=20260811-03" />
+  <link rel="stylesheet" href="css/styles.css?v=20260811-04" />
   <script>
     // 提前应用主题与字号，避免闪烁
     (function () {
@@ -326,7 +326,7 @@
     <button class="nav-btn" data-view="settings" type="button" aria-label="设置"><span class="nav-ico">⚙</span><span>设置</span></button>
   </nav>
 
-  <footer class="footer">FitPlan · 训练与饮食计划助手 — 数据仅保存在本机浏览器（v20260811-03）</footer>
+  <footer class="footer">FitPlan · 训练与饮食计划助手 — 数据仅保存在本机浏览器（v20260811-04）</footer>
 
   <button type="button" class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
 
@@ -380,6 +380,7 @@
       <div class="session-progress" id="sessionProgress"></div>
     </div>
     <div class="session-exercise" id="sessionExerciseName"></div>
+    <div class="session-gif" id="sessionGifWrap"><img id="sessionGif" alt="动作演示" loading="lazy" decoding="async" /></div>
     <div class="session-meta" id="sessionMeta"></div>
     <div class="session-set" id="sessionSetInfo"></div>
     <div class="session-rest" id="sessionRest" hidden>
@@ -412,7 +413,7 @@
 
   <div class="toast" id="toast" hidden></div>
 
-  <script src="js/app.js?v=20260811-03" defer></script>
+  <script src="js/app.js?v=20260811-04" defer></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       window.addEventListener('load', function () {
