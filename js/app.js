@@ -1226,6 +1226,17 @@ function renderSession() {
   const ex = day.exercises[sessionState.exIdx];
   document.getElementById('sessionDayTitle').textContent = `Day ${day.dayIndex} · ${day.title}`;
   document.getElementById('sessionExerciseName').textContent = ex.name;
+  const motionId = motionFor(ex.name);
+  const src = motionId ? EXERCISE_IMAGES[motionId] : null;
+  const gifWrap = document.getElementById('sessionGifWrap');
+  const gifImg = document.getElementById('sessionGif');
+  if (src && gifWrap) {
+    gifImg.src = src;
+    gifImg.alt = ex.name + ' 动作演示';
+    gifWrap.hidden = false;
+  } else if (gifWrap) {
+    gifWrap.hidden = true;
+  }
   document.getElementById('sessionMeta').textContent = `${ex.sets} 组 × ${ex.reps} · 组间休息 ${ex.rest} · ${ex.muscle}`;
   document.getElementById('sessionSetInfo').textContent = `第 ${sessionState.setIdx + 1} / ${ex.sets} 组`;
   const pct = Math.round(sessionState.done / sessionState.total * 100);
@@ -1303,6 +1314,8 @@ function finishSession() {
   saveSessions(sessions);
   const pct = Math.round(sessionState.done / sessionState.total * 100);
   document.getElementById('sessionExerciseName').textContent = '训练完成 🎉';
+  const gifWrap = document.getElementById('sessionGifWrap');
+  if (gifWrap) gifWrap.hidden = true;
   document.getElementById('sessionMeta').textContent = `用时 ${durationMin} 分钟 · 完成 ${sessionState.done} 组 · 完成度 ${pct}%`;
   document.getElementById('sessionSetInfo').textContent = ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)];
   document.getElementById('sessionRest').hidden = true;
