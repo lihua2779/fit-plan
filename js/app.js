@@ -173,6 +173,191 @@ const WORKOUT_DAYS = {
   },
 };
 
+/* 居家无器械训练日（水瓶 / 桌椅 / 门框即可完成） */
+const HOME_WORKOUT_DAYS = {
+  homeFullA: {
+    title: '居家全身 A',
+    exercises: [
+      { name: '徒手深蹲',             muscle: '股四头肌 · 臀',   sets: 3, reps: '12-15', rest: '90 秒', tip: '膝盖与脚尖同向，下蹲到大腿平行' },
+      { name: '俯卧撑',               muscle: '胸 · 三头 · 核心', sets: 3, reps: '8-15', rest: '90 秒', tip: '身体呈直线，肘部约 45 度' },
+      { name: '反向划船（桌边）',     muscle: '背 · 二头',       sets: 3, reps: '8-12', rest: '90 秒', tip: '身体保持直线，用背部带动上拉' },
+      { name: '臀桥',                 muscle: '臀大肌',          sets: 3, reps: '15-20', rest: '60 秒', tip: '顶峰停顿 1-2 秒' },
+      { name: '平板支撑',             muscle: '核心',            sets: 3, reps: '30-60 秒', rest: '60 秒', tip: '臀部收紧，身体呈一条直线' },
+      { name: '站姿提踵',             muscle: '小腿',            sets: 3, reps: '15-20', rest: '45 秒', tip: '顶峰停顿 1 秒，缓慢下放' },
+    ],
+  },
+  homeFullB: {
+    title: '居家全身 B',
+    exercises: [
+      { name: '箭步蹲',               muscle: '股四头肌 · 臀',   sets: 3, reps: '每侧 10-12', rest: '90 秒', tip: '前膝不超过脚尖过多' },
+      { name: '上斜俯卧撑（桌面）',   muscle: '胸 · 三头',       sets: 3, reps: '12-15', rest: '60 秒', tip: '身体呈直线，肘部约 45 度' },
+      { name: '超人式',               muscle: '下背 · 臀',       sets: 3, reps: '12-15', rest: '60 秒', tip: '目视地面，用背部发力抬起' },
+      { name: '单腿臀桥',             muscle: '臀大肌 · 腘绳肌', sets: 3, reps: '每侧 10-12', rest: '60 秒', tip: '髋部完全顶起，骨盆保持水平' },
+      { name: '靠墙静蹲',             muscle: '股四头肌',        sets: 3, reps: '30-60 秒', rest: '60 秒', tip: '大腿与地面平行，膝盖对准脚尖' },
+      { name: '卷腹',                 muscle: '腹直肌',          sets: 3, reps: '15-20', rest: '45 秒', tip: '下背部贴地，呼气卷起' },
+    ],
+  },
+  homeFullC: {
+    title: '居家全身 C',
+    exercises: [
+      { name: '保加利亚分腿蹲（自重）', muscle: '股四头肌 · 臀', sets: 3, reps: '每侧 10-12', rest: '90 秒', tip: '后脚垫高，重心放在前脚掌' },
+      { name: '宽距俯卧撑',           muscle: '胸 · 三头',       sets: 3, reps: '8-12', rest: '90 秒', tip: '双手略宽于肩，身体呈直线' },
+      { name: '毛巾划船（门框）',     muscle: '背 · 二头',       sets: 3, reps: '8-12', rest: '90 秒', tip: '身体后倾约 45 度，用背部带动拉' },
+      { name: '侧平板支撑',           muscle: '腹斜肌 · 核心',   sets: 3, reps: '每侧 30-45 秒', rest: '60 秒', tip: '髋部抬起，身体呈一条直线' },
+      { name: '死虫式',               muscle: '核心',            sets: 3, reps: '每侧 10-12', rest: '45 秒', tip: '下背贴地，动作缓慢控制' },
+      { name: '深蹲跳（可原地深蹲）', muscle: '臀腿 · 心肺',     sets: 3, reps: '10-15', rest: '90 秒', tip: '落地轻缓，膝盖对准脚尖' },
+    ],
+  },
+  homePush: {
+    title: '居家推（胸 · 肩 · 三头）',
+    exercises: [
+      { name: '俯卧撑',               muscle: '胸 · 三头',       sets: 4, reps: '8-15', rest: '90 秒', tip: '身体呈直线，肘部约 45 度' },
+      { name: '下斜俯卧撑（脚垫高）', muscle: '上胸 · 三头',     sets: 3, reps: '8-12', rest: '90 秒', tip: '双脚垫高，身体保持直线' },
+      { name: '水瓶肩推',             muscle: '三角肌',          sets: 3, reps: '12-15', rest: '60 秒', tip: '核心收紧，不要过度挺腰' },
+      { name: '钻石俯卧撑',           muscle: '三头 · 胸',       sets: 3, reps: '6-10', rest: '90 秒', tip: '双手呈菱形置于胸口下方' },
+      { name: '水瓶侧平举',           muscle: '三角肌中束',      sets: 3, reps: '15-20', rest: '45 秒', tip: '用小重量，感受中束发力' },
+      { name: '凳上臂屈伸',           muscle: '肱三头肌',        sets: 3, reps: '10-15', rest: '60 秒', tip: '大臂贴近身体，肘部后展' },
+    ],
+  },
+  homePull: {
+    title: '居家拉（背 · 二头 · 后束）',
+    exercises: [
+      { name: '反向划船（桌边）',     muscle: '背 · 二头',       sets: 4, reps: '8-12', rest: '90 秒', tip: '身体保持直线，用背部带动上拉' },
+      { name: '毛巾划船（门框）',     muscle: '背 · 二头',       sets: 3, reps: '8-12', rest: '90 秒', tip: '身体后倾约 45 度，肘部后拉' },
+      { name: '超人式',               muscle: '下背 · 臀',       sets: 3, reps: '12-15', rest: '60 秒', tip: '目视地面，用背部发力抬起' },
+      { name: '俯身反向飞鸟（水瓶）', muscle: '三角肌后束 · 上背', sets: 3, reps: '15-20', rest: '45 秒', tip: '俯身固定躯干，肘微屈外展' },
+      { name: '水瓶弯举',             muscle: '肱二头肌',        sets: 3, reps: '12-15', rest: '45 秒', tip: '大臂固定不摆动，缓慢下放' },
+      { name: '门框悬挂',             muscle: '背阔肌 · 握力',   sets: 3, reps: '20-40 秒', rest: '60 秒', tip: '下沉肩胛骨，保持悬挂' },
+    ],
+  },
+  homeLegs: {
+    title: '居家腿（股四 · 臀 · 小腿）',
+    exercises: [
+      { name: '徒手深蹲',             muscle: '股四头肌 · 臀',   sets: 4, reps: '15-20', rest: '90 秒', tip: '膝盖与脚尖同向，下蹲到大腿平行' },
+      { name: '箭步蹲',               muscle: '股四头肌 · 臀',   sets: 3, reps: '每侧 10-12', rest: '90 秒', tip: '前膝不超过脚尖过多' },
+      { name: '臀桥',                 muscle: '臀大肌',          sets: 4, reps: '15-20', rest: '60 秒', tip: '顶峰停顿 1-2 秒' },
+      { name: '靠墙静蹲',             muscle: '股四头肌',        sets: 3, reps: '40-60 秒', rest: '60 秒', tip: '大腿与地面平行，膝盖对准脚尖' },
+      { name: '站姿提踵',             muscle: '小腿',            sets: 4, reps: '15-20', rest: '45 秒', tip: '顶峰停顿 1 秒，缓慢下放' },
+      { name: '卷腹',                 muscle: '腹直肌',          sets: 3, reps: '15-20', rest: '45 秒', tip: '下背部贴地，呼气卷起' },
+    ],
+  },
+  homeUpper: {
+    title: '居家上肢 A',
+    exercises: [
+      { name: '俯卧撑',               muscle: '胸 · 三头',       sets: 4, reps: '8-15', rest: '90 秒', tip: '身体呈直线，肘部约 45 度' },
+      { name: '反向划船（桌边）',     muscle: '背 · 二头',       sets: 4, reps: '8-12', rest: '90 秒', tip: '身体保持直线，用背部带动上拉' },
+      { name: '水瓶肩推',             muscle: '三角肌',          sets: 3, reps: '12-15', rest: '60 秒', tip: '核心收紧，不要过度挺腰' },
+      { name: '钻石俯卧撑',           muscle: '三头 · 胸',       sets: 3, reps: '6-10', rest: '90 秒', tip: '双手呈菱形置于胸口下方' },
+      { name: '水瓶弯举',             muscle: '肱二头肌',        sets: 3, reps: '12-15', rest: '45 秒', tip: '大臂固定不摆动' },
+      { name: '俯身反向飞鸟（水瓶）', muscle: '三角肌后束 · 上背', sets: 3, reps: '15-20', rest: '45 秒', tip: '俯身固定躯干，肘微屈外展' },
+    ],
+  },
+  homeUpperB: {
+    title: '居家上肢 B',
+    exercises: [
+      { name: '上斜俯卧撑（桌面）',   muscle: '胸 · 三头',       sets: 4, reps: '12-15', rest: '60 秒', tip: '身体呈直线，肘部约 45 度' },
+      { name: '毛巾划船（门框）',     muscle: '背 · 二头',       sets: 4, reps: '8-12', rest: '90 秒', tip: '身体后倾约 45 度，肘部后拉' },
+      { name: '凳上臂屈伸',           muscle: '肱三头肌',        sets: 3, reps: '10-15', rest: '60 秒', tip: '大臂贴近身体，肘部后展' },
+      { name: '水瓶前平举',           muscle: '三角肌前束',      sets: 3, reps: '12-15', rest: '45 秒', tip: '抬至肩高，核心收紧不后仰' },
+      { name: '锤式弯举（水瓶）',     muscle: '肱二头肌 · 前臂', sets: 3, reps: '12-15', rest: '45 秒', tip: '中立握法，缓慢下放' },
+      { name: '门框悬挂',             muscle: '背阔肌 · 握力',   sets: 3, reps: '20-40 秒', rest: '60 秒', tip: '下沉肩胛骨，保持悬挂' },
+    ],
+  },
+  homeLower: {
+    title: '居家下肢 A',
+    exercises: [
+      { name: '徒手深蹲',             muscle: '股四头肌 · 臀',   sets: 4, reps: '15-20', rest: '90 秒', tip: '膝盖与脚尖同向，下蹲到大腿平行' },
+      { name: '保加利亚分腿蹲（自重）', muscle: '股四头肌 · 臀', sets: 3, reps: '每侧 10-12', rest: '90 秒', tip: '后脚垫高，重心放在前脚掌' },
+      { name: '单腿臀桥',             muscle: '臀大肌 · 腘绳肌', sets: 3, reps: '每侧 10-12', rest: '60 秒', tip: '髋部完全顶起，骨盆保持水平' },
+      { name: '侧弓步',               muscle: '臀中肌 · 大腿内侧', sets: 3, reps: '每侧 10-12', rest: '60 秒', tip: '膝盖对准脚尖，重心移到屈膝侧' },
+      { name: '站姿提踵',             muscle: '小腿',            sets: 4, reps: '15-20', rest: '45 秒', tip: '顶峰停顿 1 秒，缓慢下放' },
+      { name: '死虫式',               muscle: '核心',            sets: 3, reps: '每侧 10-12', rest: '45 秒', tip: '下背贴地，动作缓慢控制' },
+    ],
+  },
+  homeLowerB: {
+    title: '居家下肢 B',
+    exercises: [
+      { name: '箭步蹲',               muscle: '股四头肌 · 臀',   sets: 4, reps: '每侧 10-12', rest: '90 秒', tip: '前膝不超过脚尖过多' },
+      { name: '单腿臀桥',             muscle: '臀大肌 · 腘绳肌', sets: 3, reps: '每侧 10-12', rest: '60 秒', tip: '髋部完全顶起，骨盆保持水平' },
+      { name: '侧弓步',               muscle: '臀中肌 · 大腿内侧', sets: 3, reps: '每侧 10-12', rest: '60 秒', tip: '膝盖对准脚尖，重心移到屈膝侧' },
+      { name: '靠墙静蹲',             muscle: '股四头肌',        sets: 3, reps: '40-60 秒', rest: '60 秒', tip: '大腿与地面平行，膝盖对准脚尖' },
+      { name: '深蹲跳（可原地深蹲）', muscle: '臀腿 · 心肺',     sets: 3, reps: '10-15', rest: '90 秒', tip: '落地轻缓，膝盖对准脚尖' },
+      { name: '侧平板支撑',           muscle: '腹斜肌 · 核心',   sets: 3, reps: '每侧 30-45 秒', rest: '60 秒', tip: '髋部抬起，身体呈一条直线' },
+    ],
+  },
+};
+
+/* 按训练天数 + 器械 -> 训练日顺序 */
+const TEMPLATE_INFO = {
+  2: { label: '全身分化（新手友好）', gym: ['fullA', 'fullB'], home: ['homeFullA', 'homeFullB'] },
+  3: { label: '推拉腿分化', gym: ['pushA', 'pullA', 'legsA'], home: ['homePush', 'homePull', 'homeLegs'] },
+  4: { label: '上下肢分化', gym: ['upperA', 'lowerA', 'upperB', 'lowerB'], home: ['homeUpper', 'homeLower', 'homeUpperB', 'homeLowerB'] },
+  5: { label: '推拉腿 + 上下肢', gym: ['pushA', 'pullA', 'legsA', 'upperB', 'lowerB'], home: ['homePush', 'homePull', 'homeLegs', 'homeUpperB', 'homeLowerB'] },
+  6: { label: '推拉腿 A/B 轮换', gym: ['pushA', 'pullA', 'legsA', 'pushB', 'pullB', 'legsB'], home: ['homePush', 'homePull', 'homeLegs', 'homePush', 'homePull', 'homeLegs'] },
+};
+
+/* 蛋白质来源：一键替换主蛋白，自动同步餐单 */
+const PROTEIN_SOURCES = {
+  chicken: { label: '鸡胸肉', kcal: 133, protein: 27, carbs: 0, fat: 3 },
+  beef:    { label: '瘦牛肉', kcal: 200, protein: 26, carbs: 0, fat: 10 },
+  fish:    { label: '鱼虾',   kcal: 165, protein: 26, carbs: 0, fat: 6 },
+  tofu:    { label: '豆腐/豆干', kcal: 100, protein: 10, carbs: 4, fat: 5 },
+};
+
+/* 饮食偏好配置 */
+const DIET_CONFIG = {
+  normal:     { label: '普通饮食', vegan: false, lowCarb: false },
+  vegetarian: { label: '蛋奶素',   vegan: false, lowCarb: false },
+  vegan:      { label: '纯素',     vegan: true,  lowCarb: false },
+  lowcarb:    { label: '低碳水',   vegan: false, lowCarb: true },
+};
+
+/* 常见动作错误提示 */
+function mistakeFor(name) {
+  if (name.includes('深蹲')) return '膝盖内扣或脚跟离地；建议膝盖与脚尖同向，重心踩稳全脚掌';
+  if (name.includes('卧推')) return '耸肩或手腕弯折；建议肩胛骨后收下沉，手腕保持中立';
+  if (name.includes('硬拉')) return '弓背发力；建议挺胸收腹，杠铃贴近身体';
+  if (name.includes('划船')) return '身体晃动借力；建议固定躯干，用肘部带动';
+  if (name.includes('肩推')) return '过度挺腰；建议核心收紧，不要过度后仰';
+  if (name.includes('弯举')) return '大臂摆动借力；建议大臂固定，缓慢下放';
+  if (name.includes('侧平举')) return '耸肩代偿；建议用中束发力，肘微屈';
+  if (name.includes('俯卧撑')) return '塌腰或撅臀；建议收紧核心，身体呈直线';
+  if (name.includes('平板')) return '塌腰或撅臀；建议臀部收紧，身体呈直线';
+  if (name.includes('卷腹')) return '用手拉脖子；建议双手轻扶耳侧，下背贴地';
+  if (name.includes('箭步蹲')) return '前膝内扣；建议膝盖对准脚尖';
+  if (name.includes('臀桥')) return '腰部代偿或幅度不足；建议用臀部发力顶髋';
+  if (name.includes('提踵')) return '幅度太小；建议顶峰停顿，缓慢下放';
+  if (name.includes('引体')) return '摆动借力；建议控制节奏，先沉肩再发力';
+  if (name.includes('下拉')) return '身体后仰过大；建议躯干微倾，拉到上胸位置';
+  if (name.includes('面拉')) return '耸肩；建议肩胛骨后收，手臂外旋';
+  if (name.includes('分腿蹲')) return '前膝内扣；建议膝盖对准脚尖，重心放前脚掌';
+  if (name.includes('腿举')) return '膝盖完全锁死；建议保留微屈';
+  if (name.includes('臂屈伸')) return '肘部外展；建议大臂贴近身体';
+  if (name.includes('下压')) return '肘部外展；建议大臂夹紧，只用前臂发力';
+  if (name.includes('飞鸟')) return '手臂完全伸直锁肘；建议肘微屈，控制下放';
+  if (name.includes('前平举')) return '身体后仰借力；建议核心收紧，缓慢下放';
+  if (name.includes('耸肩')) return '转肩画圈；建议垂直上下，不要旋转';
+  if (name.includes('悬垂举腿')) return '摆动借力；建议骨盆后倾，控制速度';
+  if (name.includes('侧平板')) return '髋部下塌；建议髋部抬起，身体呈直线';
+  if (name.includes('超人')) return '抬头过高；建议目视地面，用背部发力';
+  if (name.includes('静蹲')) return '膝盖超过脚尖过多；建议大腿与地面平行，膝盖对准脚尖';
+  if (name.includes('死虫')) return '腰部离地；建议下背贴地，动作缓慢';
+  if (name.includes('反向飞鸟')) return '耸肩；建议肩胛骨后收，肘微屈';
+  return '建议先以轻重量熟悉动作模式，再逐步加重。';
+}
+
+/* 动作库（供替换/编辑动作时选择） */
+const EXERCISE_LIBRARY = (function () {
+  const map = {};
+  Object.values(WORKOUT_DAYS).forEach((d) => d.exercises.forEach((e) => {
+    if (!map[e.name]) map[e.name] = { name: e.name, muscle: e.muscle, tip: e.tip };
+  }));
+  Object.values(HOME_WORKOUT_DAYS).forEach((d) => d.exercises.forEach((e) => {
+    if (!map[e.name]) map[e.name] = { name: e.name, muscle: e.muscle, tip: e.tip };
+  }));
+  return Object.values(map).sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+})();
+
 /* 按每周训练天数 -> 分化类型与训练日顺序 */
 const SPLIT_INFO = {
   2: { label: '全身分化', desc: '全身 A / 全身 B 交替训练，动作覆盖全身，适合新手或时间有限的训练者。' },
@@ -293,46 +478,46 @@ const FOOD_TABLE = [
 
 /* motionId -> 本地 GIF 文件 */
 const EXERCISE_IMAGES = {
-  squat: 'img/squat.gif',
-  deadlift: 'img/deadlift.gif',
-  rdl: 'img/rdl.gif',
-  row: 'img/row.gif',
-  oneArmRow: 'img/oneArmRow.gif',
-  seatedRow: 'img/seatedRow.gif',
-  tBarRow: 'img/tBarRow.gif',
-  ohp: 'img/ohp.gif',
-  standingOhp: 'img/standingOhp.gif',
-  pullup: 'img/pullup.gif',
-  latPulldown: 'img/latPulldown.gif',
-  straightPulldown: 'img/straightPulldown.gif',
-  lunge: 'img/lunge.gif',
-  splitSquat: 'img/splitSquat.gif',
-  hipThrust: 'img/hipThrust.gif',
-  lateralRaise: 'img/lateralRaise.gif',
-  frontRaise: 'img/frontRaise.gif',
-  curl: 'img/curl.gif',
-  hammerCurl: 'img/hammerCurl.gif',
-  preacherCurl: 'img/preacherCurl.gif',
-  pushdown: 'img/pushdown.gif',
-  dip: 'img/dip.gif',
-  lyingExt: 'img/lyingExt.gif',
-  facePull: 'img/facePull.gif',
-  reverseFly: 'img/reverseFly.gif',
-  pushup: 'img/pushup.gif',
-  plank: 'img/plank.gif',
-  sidePlank: 'img/sidePlank.gif',
-  crunch: 'img/crunch.gif',
-  legRaise: 'img/legRaise.gif',
-  calfRaise: 'img/calfRaise.gif',
-  seatedCalf: 'img/seatedCalf.gif',
-  shrug: 'img/shrug.gif',
-  abduction: 'img/abduction.gif',
-  fly: 'img/fly.gif',
-  legCurl: 'img/legCurl.gif',
-  legPress: 'img/legPress.gif',
-  bench: 'img/bench.gif',
-  inclinePress: 'img/inclinePress.gif',
-  machinePress: 'img/machinePress.gif',
+  squat: 'img/squat.webp',
+  deadlift: 'img/deadlift.webp',
+  rdl: 'img/rdl.webp',
+  row: 'img/row.webp',
+  oneArmRow: 'img/oneArmRow.webp',
+  seatedRow: 'img/seatedRow.webp',
+  tBarRow: 'img/tBarRow.webp',
+  ohp: 'img/ohp.webp',
+  standingOhp: 'img/standingOhp.webp',
+  pullup: 'img/pullup.webp',
+  latPulldown: 'img/latPulldown.webp',
+  straightPulldown: 'img/straightPulldown.webp',
+  lunge: 'img/lunge.webp',
+  splitSquat: 'img/splitSquat.webp',
+  hipThrust: 'img/hipThrust.webp',
+  lateralRaise: 'img/lateralRaise.webp',
+  frontRaise: 'img/frontRaise.webp',
+  curl: 'img/curl.webp',
+  hammerCurl: 'img/hammerCurl.webp',
+  preacherCurl: 'img/preacherCurl.webp',
+  pushdown: 'img/pushdown.webp',
+  dip: 'img/dip.webp',
+  lyingExt: 'img/lyingExt.webp',
+  facePull: 'img/facePull.webp',
+  reverseFly: 'img/reverseFly.webp',
+  pushup: 'img/pushup.webp',
+  plank: 'img/plank.webp',
+  sidePlank: 'img/sidePlank.webp',
+  crunch: 'img/crunch.webp',
+  legRaise: 'img/legRaise.webp',
+  calfRaise: 'img/calfRaise.webp',
+  seatedCalf: 'img/seatedCalf.webp',
+  shrug: 'img/shrug.webp',
+  abduction: 'img/abduction.webp',
+  fly: 'img/fly.webp',
+  legCurl: 'img/legCurl.webp',
+  legPress: 'img/legPress.webp',
+  bench: 'img/bench.webp',
+  inclinePress: 'img/inclinePress.webp',
+  machinePress: 'img/machinePress.webp',
 };
 
 /* 根据动作名称匹配演示 GIF */
@@ -387,11 +572,19 @@ function getInput() {
   const age = Number(document.getElementById('age').value);
   const height = Number(document.getElementById('height').value);
   const weight = Number(document.getElementById('weight').value);
+  const units = getUnits();
+  const bfRaw = document.getElementById('bodyFatInput').value;
+  const bodyFat = bfRaw === '' ? null : Number(bfRaw);
+  // 单位换算：斤 -> kg，英尺 -> cm
+  const kg = units.weight === 'jin' ? weight / 2 : weight;
+  const cm = units.height === 'ft' ? Math.round(height * 30.48) : height;
 
   const problems = [];
   if (!age || age < 14 || age > 90) problems.push('年龄需在 14-90 之间');
-  if (!height || height < 120 || height > 230) problems.push('身高需在 120-230cm 之间');
-  if (!weight || weight < 30 || weight > 200) problems.push('体重需在 30-200kg 之间');
+  const cmCheck = units.height === 'ft' ? cm : height;
+  if (!cmCheck || cmCheck < 120 || cmCheck > 230) problems.push(units.height === 'ft' ? '身高需在约 4.0-7.5 英尺之间' : '身高需在 120-230cm 之间');
+  if (!weight || kg < 30 || kg > 200) problems.push(units.weight === 'jin' ? '体重需在 60-400 斤之间' : '体重需在 30-200kg 之间');
+  if (bodyFat != null && (bodyFat < 3 || bodyFat > 60)) problems.push('体脂率需在 3%-60% 之间');
   if (problems.length) {
     const note = document.getElementById('saveNote');
     note.style.color = '#dc2626';
@@ -404,13 +597,16 @@ function getInput() {
   return {
     sex: document.querySelector('.seg-btn.active[data-target="sex"]').dataset.value,
     age,
-    height,
-    weight,
+    height: Math.round(cmCheck),
+    weight: kg,
+    bodyFat,
     activity: document.getElementById('activity').value,
     goal: document.getElementById('goal').value,
     days: Number(document.getElementById('days').value),
     experience: document.getElementById('experience').value,
     diet: document.getElementById('diet').value,
+    equipment: document.getElementById('equipment').value,
+    deficit: getDeficitRatio(),
   };
 }
 
@@ -420,15 +616,44 @@ function calcBMR(sex, weight, height, age) {
   return sex === 'male' ? base + 5 : base - 161;
 }
 
+/* 有体脂数据时使用 Katch-McArdle（去脂体重）公式，更精准 */
+function calcBmrWithBodyFat(sex, weight, height, age, bodyFat) {
+  if (bodyFat != null && bodyFat >= 3 && bodyFat <= 60) {
+    const lbm = weight * (1 - bodyFat / 100);
+    return 370 + 21.6 * lbm;
+  }
+  return calcBMR(sex, weight, height, age);
+}
+
+/* 热量缺口 / 盈余比例（来自滑块） */
+function getDeficitRatio() {
+  const slider = document.getElementById('deficitSlider');
+  const goal = document.getElementById('goal').value;
+  if (!slider) return goal === 'cut' ? 0.15 : goal === 'bulk' ? 0.12 : 0;
+  if (goal === 'cut') return Number(slider.value) / 100;
+  if (goal === 'bulk') return Number(slider.value) / 100;
+  return 0;
+}
+
 function calcTargets(input) {
-  const bmr = calcBMR(input.sex, input.weight, input.height, input.age);
+  const bmr = calcBmrWithBodyFat(input.sex, input.weight, input.height, input.age, input.bodyFat);
   const tdee = bmr * ACTIVITY_LEVELS[input.activity].factor;
   const goal = GOAL_CONFIG[input.goal];
-  const calories = Math.round(tdee * goal.calorieRatio);
+  const ratio = input.goal === 'cut' ? (1 - input.deficit) : input.goal === 'bulk' ? (1 + input.deficit) : 1;
+  const calories = Math.round(tdee * ratio);
   const protein = Math.round(input.weight * goal.proteinPerKg);
   const fat = Math.round((calories * goal.fatRatio) / 9);
   const carbs = Math.round((calories - protein * 4 - fat * 9) / 4);
   const waterMl = Math.round(input.weight * 35);
+  const macroRanges = {
+    protein: input.goal === 'cut' ? [1.8, 2.7] : input.goal === 'bulk' ? [1.6, 2.2] : [1.4, 2.0],
+    fatPct: [20, 35],
+  };
+  const weeklyLossKg = input.goal === 'cut'
+    ? (tdee - calories) * 7 / 7700
+    : input.goal === 'bulk'
+      ? (calories - tdee) * 7 / 7700
+      : 0;
   return {
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
@@ -437,23 +662,74 @@ function calcTargets(input) {
     carbs,
     fat,
     waterMl,
+    weeklyLossKg,
+    proteinPerKg: Math.round(protein / input.weight * 10) / 10,
+    macroRanges,
+    formulaLabel: input.bodyFat != null ? 'Katch-McArdle（含体脂修正）' : 'Mifflin-St Jeor',
     goalLabel: goal.label,
     activityLabel: ACTIVITY_LEVELS[input.activity].label,
   };
 }
 
-/* 根据经验调整组数：新手每组动作减 1 组 */
+/* 容量模式：默认完整；light = 每个动作减 1 组（新手 / 疲劳时一键降容量） */
+function getVolumeFactor() {
+  try { return localStorage.getItem('fitplan-volume') || 'full'; } catch (e) { return 'full'; }
+}
+
+function setVolumeFactor(v) {
+  try { localStorage.setItem('fitplan-volume', v); } catch (e) { /* 忽略 */ }
+}
+
+/* 自定义计划：按模板 dayKey 保存修改后的动作列表 */
+function getCustomPlan() {
+  try { return JSON.parse(localStorage.getItem('fitplan-custom-plan')) || {}; } catch (e) { return {}; }
+}
+
+function saveCustomPlan(obj) {
+  try { localStorage.setItem('fitplan-custom-plan', JSON.stringify(obj)); } catch (e) { /* 忽略 */ }
+}
+
+/* 根据经验调整容量：新手每组动作减 1 组；降容量模式再减 1 组 */
+function adjustSets(ex, experience, volume) {
+  let sets = ex.sets;
+  if (experience === 'beginner') sets -= 1;
+  if (volume === 'light') sets -= 1;
+  return Math.max(sets, 2);
+}
+
+/* 根据经验调整训练天数（新手高频肌群上限 2 次/周） */
+function experienceAllowedDays(experience, days) {
+  return experience === 'beginner' ? Math.min(days, 3) : days;
+}
+
 function buildWorkoutPlan(input) {
-  const split = SPLIT_MAP[input.days];
+  const keys = TEMPLATE_INFO[input.days][input.equipment === 'home' ? 'home' : 'gym'];
   const isBeginner = input.experience === 'beginner';
-  const days = split.map((key, i) => {
-    const day = WORKOUT_DAYS[key];
-    const exercises = day.exercises.map((ex) => {
-      const sets = isBeginner ? Math.max(ex.sets - 1, 2) : ex.sets;
-      return { ...ex, sets };
+  const volume = getVolumeFactor();
+  const customPlan = getCustomPlan();
+  const planKey = `${input.days}-${input.equipment}`;
+  const customMap = customPlan[planKey] || {};
+
+  const days = keys.map((key, i) => {
+    const day = WORKOUT_DAYS[key] || HOME_WORKOUT_DAYS[key];
+    const custom = customMap[key];
+    const baseExercises = (custom && Array.isArray(custom) && custom.length ? custom : day.exercises);
+    const exercises = baseExercises.map((ex) => {
+      const name = ex.name;
+      const lib = EXERCISE_LIBRARY.find((x) => x.name === name);
+      return {
+        name,
+        muscle: ex.muscle || (lib ? lib.muscle : '全身'),
+        sets: adjustSets(ex, input.experience, volume),
+        reps: ex.reps,
+        rest: ex.rest,
+        tip: ex.tip || (lib ? lib.tip : ''),
+        mistake: mistakeFor(name),
+      };
     });
     return {
       dayIndex: i + 1,
+      key,
       title: day.title,
       exercises,
     };
@@ -461,7 +737,7 @@ function buildWorkoutPlan(input) {
 
   const tips = [];
   if (isBeginner) {
-    tips.push('新手前 2-4 周以学习动作模式为主，优先使用轻重量保证动作标准，再逐步加重。');
+    tips.push('新手前 4-6 周以学习动作模式为主，优先使用轻重量保证动作标准；建议大肌群每周不超过 2 次，留足恢复时间。');
   }
   if (input.goal === 'cut') {
     tips.push('减脂期力量训练后建议加 20-30 分钟中低强度有氧（快走 / 单车 / 爬坡），组间休息可缩短到 60-90 秒。');
@@ -473,47 +749,176 @@ function buildWorkoutPlan(input) {
   tips.push('力量训练安排在训练日的同一时段，保证每周 2 天以上休息日用于恢复。');
 
   return {
+    key: planKey,
     days,
     tips,
     coverage: computeCoverage(days),
-    splitLabel: SPLIT_INFO[input.days].label,
-    splitDesc: SPLIT_INFO[input.days].desc,
+    splitLabel: `${TEMPLATE_INFO[input.days].label} · ${input.equipment === 'home' ? '居家无器械' : '健身房'}`,
+    splitDesc: SPLIT_INFO[input.days].desc + (input.equipment === 'home' ? ' 居家版全部为无器械动作，用桌椅、门框和装满水的瓶子即可完成。' : ''),
+    volume,
   };
 }
 
-function buildDietPlan(input, targets) {
-  const plan = MEAL_PLANS[input.goal];
-  const samples = plan.sample[input.diet === 'vegetarian' ? 'vegetarian' : 'normal'];
+/* 根据目标与饮食偏好生成每日餐单文本 */
+function mealSampleText(goal, diet, proteinLabel) {
+  const cfg = DIET_CONFIG[diet] || DIET_CONFIG.normal;
+  const veg = cfg.vegan;
+  const lowCarb = cfg.lowCarb;
+  const milk = veg ? '豆浆' : '牛奶';
+  const eggs2 = veg ? '豆腐/天贝 120g' : '水煮蛋 2 个';
+  const eggs3 = veg ? '天贝/豆腐 150g' : '鸡蛋 3 个';
+  const dairy = veg ? '豆浆 1 杯' : '希腊酸奶 1 杯';
+  const fruit = lowCarb ? '小份莓果' : '水果 1 份';
 
+  if (goal === 'bulk') {
+    if (lowCarb) {
+      return [
+        `鸡蛋 3 个 + 牛油果 1/2 个 + 蔬菜 1 份`,
+        `${proteinLabel} 200g + 蔬菜 1 大份 + 橄榄油 1 勺`,
+        `${dairy} + 坚果 15g`,
+        `练后：乳清蛋白 1 勺 + 香蕉 1 根`,
+        `${proteinLabel} 220g + 蔬菜 2 大份 + 橄榄油 1 勺`,
+      ];
+    }
+    return [
+      `燕麦 80g + ${milk} 250ml + ${eggs3} + 香蕉 1 根`,
+      `全麦面包 2 片 + 花生酱 1 勺 + ${dairy}`,
+      `米饭 250g + ${proteinLabel} 200g + 蔬菜 1 大份`,
+      `练后：乳清蛋白 1 勺 + 香蕉 1 根 / 米饭 150g + 蛋白 100g`,
+      `米饭 200g + ${proteinLabel} 200g + 蔬菜 2 大份 + 橄榄油 1 勺`,
+    ];
+  }
+  if (goal === 'cut') {
+    if (lowCarb) {
+      return [
+        `${eggs2} + 蔬菜 1 份 + 牛油果 1/4 个`,
+        `${proteinLabel} 180g + 蔬菜 2 大份 + 橄榄油 1 勺`,
+        `${dairy} + 坚果 10g`,
+        `${proteinLabel} 180g + 蔬菜 2 大份`,
+      ];
+    }
+    return [
+      `燕麦 50g + ${eggs2} + ${fruit}`,
+      `杂粮饭 150g + ${proteinLabel} 150g + 蔬菜 1 大份 + 橄榄油 1 勺`,
+      `${dairy} + 苹果/蓝莓 1 份`,
+      `红薯/糙米 150g + ${proteinLabel} 150g + 蔬菜 2 大份`,
+    ];
+  }
+  // maintain
+  if (lowCarb) {
+    return [
+      `${eggs2} + 蔬菜 1 份 + 牛油果 1/4 个`,
+      `${proteinLabel} 170g + 蔬菜 2 大份 + 橄榄油 1 勺`,
+      `${dairy} + 坚果 10g`,
+      `${proteinLabel} 170g + 蔬菜 2 大份`,
+    ];
+  }
+  return [
+    `燕麦 60g + ${milk} 250ml + 鸡蛋 2 个 + 水果 1 份`,
+    `杂粮饭 200g + ${proteinLabel} 150g + 蔬菜 1 大份 + 橄榄油 1 勺`,
+    `${dairy} + 坚果 10g`,
+    `红薯/糙米 180g + ${proteinLabel} 150g + 蔬菜 2 大份`,
+  ];
+}
+
+/* 一周购物清单（按每日餐单自动汇总） */
+function buildShoppingList(goal, diet, proteinLabel) {
+  const cfg = DIET_CONFIG[diet] || DIET_CONFIG.normal;
+  const veg = cfg.vegan;
+  const lowCarb = cfg.lowCarb;
+  const items = [];
+  const protG = goal === 'bulk' ? 200 : goal === 'cut' ? 150 : 160;
+  items.push({ name: proteinLabel, qty: `${protG * 7}g` });
+  if (!veg) {
+    items.push({ name: '鸡蛋', qty: goal === 'bulk' ? '21 个' : '14 个' });
+    items.push({ name: '牛奶/酸奶', qty: '7 杯' });
+  } else {
+    items.push({ name: '豆浆', qty: '7 杯' });
+    items.push({ name: '天贝/豆腐（额外）', qty: '700g' });
+  }
+  if (!lowCarb) {
+    items.push({ name: '燕麦', qty: goal === 'bulk' ? '560g' : '350g' });
+    items.push({ name: '米饭/杂粮饭', qty: goal === 'bulk' ? '3kg' : '1.5kg' });
+    items.push({ name: '红薯/糙米', qty: '500g' });
+  }
+  items.push({ name: '蔬菜（西兰花/菠菜等）', qty: lowCarb ? '3kg' : '2kg' });
+  items.push({ name: '水果/莓果', qty: lowCarb ? '500g' : '7 份' });
+  items.push({ name: '坚果', qty: '150g' });
+  items.push({ name: '橄榄油', qty: '1 瓶' });
+  return items;
+}
+
+function buildDietPlan(input, targets, proteinSource) {
+  const cfg = DIET_CONFIG[input.diet] || DIET_CONFIG.normal;
+  const srcKey = (proteinSource && PROTEIN_SOURCES[proteinSource]) ? proteinSource : (cfg.vegan ? 'tofu' : 'chicken');
+  const src = PROTEIN_SOURCES[srcKey];
+  const plan = MEAL_PLANS[input.goal];
+  const samples = mealSampleText(input.goal, input.diet, src.label);
   const meals = plan.meals.map((meal, i) => ({
     name: meal.name,
     kcal: Math.round(targets.calories * meal.pct),
     protein: Math.round(targets.protein * meal.pct),
     carbs: Math.round(targets.carbs * meal.pct),
     fat: Math.round(targets.fat * meal.pct),
-    sample: samples[i],
+    sample: samples[i] || '',
   }));
 
-  const proteinTip = input.diet === 'vegetarian'
-    ? '素食者蛋白质来源：鸡蛋、牛奶、酸奶、豆腐、豆干、天贝，建议每餐至少包含 1-2 份蛋白质食物。'
-    : '蛋白质来源建议多样化：鸡胸、牛肉、鱼虾、鸡蛋、奶制品、乳清蛋白粉交替食用。';
+  const proteinTip = cfg.vegan
+    ? '纯素者蛋白质来源：豆腐、豆干、天贝、豆类、藜麦，建议每餐至少 1-2 份蛋白质食物，并注意补充维生素 B12。'
+    : cfg.label === '蛋奶素'
+      ? '蛋奶素蛋白质来源：鸡蛋、牛奶、酸奶、豆腐、豆干、天贝，建议每餐至少 1-2 份蛋白质食物。'
+      : cfg.lowCarb
+        ? '低碳水模式已自动减少主食份量、加大蛋白质与蔬菜比例，优质脂肪来源：橄榄油、坚果、牛油果。'
+        : '蛋白质来源建议多样化：鸡胸、牛肉、鱼虾、鸡蛋、奶制品、乳清蛋白粉交替食用。';
 
-  return { meals, proteinTip };
+  return {
+    meals,
+    proteinTip,
+    proteinSource: srcKey,
+    proteinLabel: src.label,
+    proteinMacros: `${src.label}（每 100g：${src.kcal} kcal · 蛋白 ${src.protein}g · 碳水 ${src.carbs}g · 脂肪 ${src.fat}g）`,
+    shopping: buildShoppingList(input.goal, input.diet, src.label),
+    dietLabel: cfg.label,
+  };
 }
 
 /* ---------------- 渲染 ---------------- */
 
 function renderStats(input, targets) {
   const grid = document.getElementById('statGrid');
+  const deficitControl = document.getElementById('deficitControl');
+  const slider = document.getElementById('deficitSlider');
+  const deficitValue = document.getElementById('deficitValue');
+  const deficitHint = document.getElementById('deficitHint');
+  const units = getUnits();
+
+  // 缺口 / 盈余滑块：减脂 10-20%，增肌 5-15%，保持隐藏
+  if (input.goal === 'cut' || input.goal === 'bulk') {
+    deficitControl.hidden = false;
+    const isCut = input.goal === 'cut';
+    slider.min = isCut ? 10 : 5;
+    slider.max = isCut ? 20 : 15;
+    slider.value = Math.round(input.deficit * 100);
+    document.getElementById('deficitLabel').textContent = isCut ? '热量缺口（可调）' : '热量盈余（可调）';
+    deficitValue.textContent = slider.value + '%';
+    deficitHint.textContent = isCut
+      ? `每周预计减重约 ${(targets.weeklyLossKg * 2).toFixed(1)} 斤（${targets.weeklyLossKg.toFixed(2)} kg），建议每周减重不超过体重的 1%。`
+      : `每周预计增重约 ${(targets.weeklyLossKg * 2).toFixed(1)} 斤（${targets.weeklyLossKg.toFixed(2)} kg），增肌期体重增速宜缓。`;
+  } else {
+    deficitControl.hidden = true;
+  }
+
+  const wUnit = units.weight === 'jin' ? '斤' : 'kg';
+  const wVal = units.weight === 'jin' ? (input.weight * 2) : input.weight;
   const deficitInfo = input.goal === 'cut'
-    ? `比维持热量低约 ${Math.round(targets.tdee - targets.calories)} kcal（约 15% 缺口，建议 10–20%）`
+    ? `比维持热量低约 ${Math.round(targets.tdee - targets.calories)} kcal（${Math.round(input.deficit * 100)}% 缺口）`
     : input.goal === 'bulk'
-      ? `比维持热量高约 ${Math.round(targets.calories - targets.tdee)} kcal（约 12% 盈余，建议 10–20%）`
+      ? `比维持热量高约 ${Math.round(targets.calories - targets.tdee)} kcal（${Math.round(input.deficit * 100)}% 盈余）`
       : '与维持热量持平';
 
   const stats = [
     { label: '每日目标热量', value: `${targets.calories}`, unit: 'kcal', extra: deficitInfo },
-    { label: '蛋白质', value: `${targets.protein}`, unit: 'g', extra: `约 ${Math.round(targets.protein * 4)} kcal` },
+    { label: '蛋白质', value: `${targets.protein}`, unit: 'g', extra: `约 ${targets.proteinPerKg} g/kg` },
     { label: '碳水', value: `${targets.carbs}`, unit: 'g', extra: `约 ${Math.round(targets.carbs * 4)} kcal` },
     { label: '脂肪', value: `${targets.fat}`, unit: 'g', extra: `约 ${Math.round(targets.fat * 9)} kcal` },
     { label: '每日饮水', value: `${targets.waterMl}`, unit: 'ml', extra: '建议分多次饮用' },
@@ -537,7 +942,17 @@ function renderStats(input, targets) {
   document.getElementById('macroLegend').textContent =
     `热量分配：蛋白质 ${pct(targets.protein * 4)}% · 碳水 ${pct(targets.carbs * 4)}% · 脂肪 ${pct(targets.fat * 9)}%`;
 
-  const profile = `${targets.goalLabel} · ${ACTIVITY_LEVELS[input.activity].label} · 每周 ${input.days} 练 · ${EXPERIENCE_LABEL[input.experience]}`;
+  // 宏量参考区间提示（蛋白质 g/kg、脂肪供能占比）
+  const [pLo, pHi] = targets.macroRanges.protein;
+  const fatPct = Math.round((targets.fat * 9 / targets.calories) * 100);
+  const proteinOk = targets.proteinPerKg >= pLo && targets.proteinPerKg <= pHi;
+  const fatOk = fatPct >= targets.macroRanges.fatPct[0] && fatPct <= targets.macroRanges.fatPct[1];
+  document.getElementById('macroRangeNote').innerHTML = [
+    `<span class="${proteinOk ? 'ok' : 'warn'}">蛋白质 ${targets.proteinPerKg} g/kg（推荐区间 ${pLo}-${pHi} g/kg）${proteinOk ? '✓' : '⚠ 建议调整'}</span>`,
+    `<span class="${fatOk ? 'ok' : 'warn'}">脂肪供能 ${fatPct}%（推荐 20-35%）${fatOk ? '✓' : '⚠'}</span>`,
+  ].join(' · ');
+
+  const profile = `${targets.goalLabel} · ${ACTIVITY_LEVELS[input.activity].label} · 每周 ${input.days} 练 · ${EXPERIENCE_LABEL[input.experience]} · 体重 ${wVal}${wUnit} · ${targets.formulaLabel}`;
   document.getElementById('profileSummary').textContent = profile;
 }
 
@@ -548,30 +963,38 @@ function renderTraining(plan) {
       <h3>周训练安排 · ${plan.splitLabel}</h3>
       <p>${plan.splitDesc}</p>
       <p>${plan.days.map((d) => `第 ${d.dayIndex} 天：${d.title}`).join(' · ')}，其余为休息日（可安排散步或拉伸）。</p>
-      <p class="demo-note">点击「Day 1 / Day 2…」展开当天训练；每行右侧 ⏱ 可开启组间计时器。动作下方为动态演示 GIF（来源：开源动作库 ExerciseGymGifsDB）。</p>
+      <p class="demo-note">点击「Day 1 / Day 2…」展开当天训练；点「开始训练」进入沉浸式模式，按顺序逐动作推进；每行 ⏱ 可单独开启组间计时器；「编辑」可修改组数、次数或替换动作。</p>
     </div>
     <div class="tip-box">
       ${plan.tips.map((t) => `<p>• ${t}</p>`).join('')}
     </div>
   `;
 
-  const highFreq = plan.coverage.filter((c) => c.count >= 4);
+  const maxSessions = { beginner: 2, intermediate: 3, advanced: 4 };
+  const cap = maxSessions[currentExperience()] || 3;
+  const highFreq = plan.coverage.filter((c) => c.sessions > cap);
   const isFullBody = plan.splitLabel.includes('全身');
   const coverageNote = isFullBody
     ? '全身分化：每天覆盖全身主要肌群，单块肌群每周 2 次左右，适合每周训练天数较少、需要全身均衡发展的人。'
     : highFreq.length
-      ? `注意：${highFreq.map((h) => `${h.group} 每周 ${h.count} 次`).join('、')}，频率较高，训练时建议控制容量并保证充分恢复。`
+      ? `<span class="warn-text">注意：${highFreq.map((h) => `${h.group} 每周 ${h.sessions} 练`).join('、')}超出当前经验推荐频率，建议降低训练容量、保证充分恢复。</span>`
       : '大肌群每周约 2 练、间隔 48 小时以上，兼顾刺激频率与恢复。';
   const coverageHtml = `
     <div class="coverage">
       <div class="coverage-head">
-        <h4>本周肌群覆盖</h4>
-        <span>大肌群建议每周训练 2 次以上</span>
+        <h4>本周肌群覆盖（按训练日统计）</h4>
+        <span>${currentExperienceLabel()}推荐大肌群每周 ≤ ${cap} 练</span>
       </div>
       <div class="chips">
-        ${plan.coverage.map((c) => `<span class="chip">${c.group} <b>×${c.count}</b></span>`).join('')}
+        ${plan.coverage.map((c) => {
+          const risk = c.sessions > cap ? ' chip-risk' : '';
+          return `<span class="chip${risk}">${c.group} <b>${c.sessions} 练</b> · ${c.exercises} 动作</span>`;
+        }).join('')}
       </div>
       <p class="coverage-note">${coverageNote}</p>
+      <div class="coverage-actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="reduceVolumeBtn">${plan.volume === 'light' ? '恢复标准容量' : '一键降低训练容量（每组减 1 组）'}</button>
+      </div>
     </div>
   `;
 
@@ -582,10 +1005,13 @@ function renderTraining(plan) {
 
   const days = plan.days.map((d, di) => `
     <div class="day-card${di === 0 ? ' open' : ''}" data-day="${d.dayIndex}">
-      <button type="button" class="day-head" aria-expanded="${di === 0}" aria-controls="day-body-${d.dayIndex}">
-        <span>Day ${d.dayIndex} · ${d.title}</span>
-        <span class="chev">▾</span>
-      </button>
+      <div class="day-head">
+        <button type="button" class="day-toggle" aria-expanded="${di === 0}" aria-controls="day-body-${d.dayIndex}">
+          <span class="day-title">Day ${d.dayIndex} · ${d.title}</span>
+          <span class="chev">▾</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-sm start-session-btn" data-day-idx="${di}">开始训练</button>
+      </div>
       <div class="day-body" id="day-body-${d.dayIndex}">
         <div class="table-wrap">
           <table>
@@ -602,12 +1028,19 @@ function renderTraining(plan) {
                 return `
               <tr>
                 <td>${i + 1}</td>
-                <td class="strong">${ex.name}${demoHtml}</td>
-                <td>${ex.muscle}</td>
-                <td class="sets-reps">${ex.sets} × ${ex.reps}</td>
-                <td>${ex.rest}</td>
+                <td class="strong" data-label="动作">${ex.name}${demoHtml}</td>
+                <td data-label="目标肌群">${ex.muscle}</td>
+                <td class="sets-reps" data-label="组数 × 次数">${ex.sets} × ${ex.reps}</td>
+                <td data-label="组间休息">${ex.rest}</td>
                 <td><button type="button" class="timer-btn" data-rest="${restSeconds(ex.rest)}" aria-label="为 ${ex.name} 开启组间计时器">⏱</button></td>
-                <td class="tip-cell">${ex.tip}</td>
+                <td class="tip-cell" data-label="要点">
+                  <p class="tip-main">${ex.tip}</p>
+                  <p class="tip-mistake">⚠ ${ex.mistake}</p>
+                  <div class="row-actions">
+                    <button type="button" class="btn btn-ghost btn-sm" data-edit-ex="${di}|${i}">编辑</button>
+                    <button type="button" class="btn btn-ghost btn-sm btn-danger-ghost" data-del-ex="${di}|${i}">删除</button>
+                  </div>
+                </td>
               </tr>
                 `;
               }).join('')}
@@ -636,15 +1069,22 @@ function renderDiet(dietPlan, targets, input) {
 
   const meals = `
     <div class="plan-intro">
-      <h3>每日饮食安排</h3>
-      <p>目标 ${targets.calories} kcal，蛋白质 ${targets.protein}g / 碳水 ${targets.carbs}g / 脂肪 ${targets.fat}g（约占总热量 25%，符合 20–35% 建议范围）。下面是一份示例搭配，同类食物可自由替换。</p>
+      <h3>每日饮食安排 · ${dietPlan.dietLabel}</h3>
+      <p>目标 ${targets.calories} kcal，蛋白质 ${targets.protein}g / 碳水 ${targets.carbs}g / 脂肪 ${targets.fat}g。下面是一份示例搭配，点击下方按钮可一键替换蛋白质来源，餐单自动同步。</p>
     </div>
     <div class="tip-box">
       <p>• ${goalNote}</p>
-      <p>• 蛋白质建议区间：${proteinRange}。本方案取 ${targets.protein}g（${GOAL_CONFIG[input.goal].proteinPerKg} g/kg），依据 Morton 2018 荟萃分析（增肌平台期约 1.6 g/kg/天）与 ISSN 2017 立场声明。</p>
+      <p>• 蛋白质建议区间：${proteinRange}<sup><a href="#refs">[2]</a></sup>。本方案取 ${targets.protein}g（${targets.proteinPerKg} g/kg），依据 Morton 2018 荟萃分析<sup><a href="#refs">[2]</a></sup>与 ISSN 2017 立场声明<sup><a href="#refs">[3]</a></sup>。</p>
+      <p>• ${dietPlan.proteinMacros}</p>
       <p>• ${dietPlan.proteinTip}</p>
       <p>• 训练日可把「练前 / 练后加餐」安排在训练前后 1 小时内；训练前 2 小时完成正餐。</p>
-      <p>• 每天饮水 ${targets.waterMl}ml（约 35 ml/kg，运动人群常见建议 30–40 ml/kg），睡眠 7–9 小时，睡眠不足会显著影响恢复与食欲控制。</p>
+      <p>• 每天饮水 ${targets.waterMl}ml（约 35 ml/kg，运动人群常见建议 30–40 ml/kg），睡眠 7–9 小时，睡眠不足会显著影响恢复与食欲控制。<sup><a href="#refs">[6]</a></sup></p>
+    </div>
+    <div class="protein-source">
+      <span class="field-label">蛋白质来源：</span>
+      ${Object.entries(PROTEIN_SOURCES).map(([k, s]) => `
+        <button type="button" class="btn btn-ghost btn-sm protein-src-btn${dietPlan.proteinSource === k ? ' active' : ''}" data-protein="${k}">${s.label}</button>
+      `).join('')}
     </div>
     <div class="meal-list">
       ${dietPlan.meals.map((m) => `
@@ -661,6 +1101,15 @@ function renderDiet(dietPlan, targets, input) {
           <p class="meal-sample">${m.sample}</p>
         </div>
       `).join('')}
+    </div>
+    <div class="shopping-card">
+      <div class="shopping-head">
+        <h4>一周购物清单</h4>
+        <button type="button" class="btn btn-ghost btn-sm" id="copyShopBtn">复制清单</button>
+      </div>
+      <ul class="shopping-list">
+        ${dietPlan.shopping.map((s) => `<li><span>${s.name}</span><b>${s.qty}</b></li>`).join('')}
+      </ul>
     </div>
   `;
 
@@ -739,6 +1188,273 @@ function renderFoods() {
   `;
 }
 
+/* ---------------- 训练沉浸模式 / 动作编辑 / 容量 ---------------- */
+
+function currentExperience() {
+  const el = document.getElementById('experience');
+  return el ? el.value : 'beginner';
+}
+
+function currentExperienceLabel() {
+  return EXPERIENCE_LABEL[currentExperience()] || '新手';
+}
+
+const sessionState = {
+  active: false, dayIndex: 0, exIdx: 0, setIdx: 0,
+  start: 0, done: 0, total: 0, restInterval: null, restRemain: 0,
+};
+
+function startSession(dayIndex) {
+  const day = currentPlan.days[dayIndex];
+  if (!day) return;
+  sessionState.active = true;
+  sessionState.dayIndex = dayIndex;
+  sessionState.exIdx = 0;
+  sessionState.setIdx = 0;
+  sessionState.start = Date.now();
+  sessionState.done = 0;
+  sessionState.total = day.exercises.reduce((s, e) => s + e.sets, 0);
+  document.getElementById('sessionOverlay').hidden = false;
+  document.getElementById('sessionDoneBtn').hidden = false;
+  document.getElementById('sessionEndBtn').textContent = '结束训练';
+  document.body.classList.add('no-scroll');
+  renderSession();
+}
+
+function renderSession() {
+  const day = currentPlan.days[sessionState.dayIndex];
+  const ex = day.exercises[sessionState.exIdx];
+  document.getElementById('sessionDayTitle').textContent = `Day ${day.dayIndex} · ${day.title}`;
+  document.getElementById('sessionExerciseName').textContent = ex.name;
+  document.getElementById('sessionMeta').textContent = `${ex.sets} 组 × ${ex.reps} · 组间休息 ${ex.rest} · ${ex.muscle}`;
+  document.getElementById('sessionSetInfo').textContent = `第 ${sessionState.setIdx + 1} / ${ex.sets} 组`;
+  const pct = Math.round(sessionState.done / sessionState.total * 100);
+  document.getElementById('sessionProgress').textContent = `已完成 ${sessionState.done} / ${sessionState.total} 组（${pct}%）`;
+  const lastSet = sessionState.setIdx + 1 >= ex.sets;
+  document.getElementById('sessionDoneBtn').textContent = lastSet ? '完成本组 ✓ 下一动作' : '完成本组 ✓';
+  document.getElementById('sessionRest').hidden = true;
+  document.getElementById('sessionSkipBtn').hidden = true;
+  document.getElementById('sessionDoneBtn').disabled = false;
+}
+
+function restSecondsOf(rest) {
+  const m = String(rest).match(/(\d+)/);
+  return m ? Number(m[1]) : 90;
+}
+
+function sessionRest(seconds) {
+  const restEl = document.getElementById('sessionRest');
+  restEl.hidden = false;
+  document.getElementById('sessionSkipBtn').hidden = false;
+  document.getElementById('sessionDoneBtn').disabled = true;
+  sessionState.restRemain = seconds;
+  document.getElementById('sessionRestTime').textContent = seconds + ' 秒';
+  sessionState.restInterval = setInterval(() => {
+    sessionState.restRemain--;
+    document.getElementById('sessionRestTime').textContent = sessionState.restRemain + ' 秒';
+    if (sessionState.restRemain <= 0) {
+      clearInterval(sessionState.restInterval);
+      sessionState.restInterval = null;
+      beep();
+      vibrate();
+      restEl.hidden = true;
+      document.getElementById('sessionSkipBtn').hidden = true;
+      document.getElementById('sessionDoneBtn').disabled = false;
+      showToast('休息结束，开始下一组！💪');
+    }
+  }, 1000);
+}
+
+function vibrate() {
+  try { if (navigator.vibrate) navigator.vibrate([200, 100, 200]); } catch (e) { /* 忽略 */ }
+}
+
+function sessionDone() {
+  if (sessionState.restInterval) { clearInterval(sessionState.restInterval); sessionState.restInterval = null; }
+  const day = currentPlan.days[sessionState.dayIndex];
+  const ex = day.exercises[sessionState.exIdx];
+  sessionState.done++;
+  if (sessionState.setIdx + 1 < ex.sets) {
+    sessionState.setIdx++;
+    renderSession();
+    sessionRest(restSecondsOf(ex.rest));
+  } else if (sessionState.exIdx + 1 < day.exercises.length) {
+    sessionState.exIdx++;
+    sessionState.setIdx = 0;
+    renderSession();
+    sessionRest(restSecondsOf(ex.rest));
+  } else {
+    finishSession();
+  }
+}
+
+function sessionSkip() {
+  if (sessionState.restInterval) { clearInterval(sessionState.restInterval); sessionState.restInterval = null; }
+  document.getElementById('sessionRest').hidden = true;
+  document.getElementById('sessionSkipBtn').hidden = true;
+  document.getElementById('sessionDoneBtn').disabled = false;
+}
+
+function finishSession() {
+  const day = currentPlan.days[sessionState.dayIndex];
+  const durationMin = Math.max(1, Math.round((Date.now() - sessionState.start) / 60000));
+  const sessions = getSessions();
+  sessions.push({ date: dateKey(new Date()), dayTitle: day.title, sets: sessionState.done, durationMin });
+  saveSessions(sessions);
+  const pct = Math.round(sessionState.done / sessionState.total * 100);
+  document.getElementById('sessionExerciseName').textContent = '训练完成 🎉';
+  document.getElementById('sessionMeta').textContent = `用时 ${durationMin} 分钟 · 完成 ${sessionState.done} 组 · 完成度 ${pct}%`;
+  document.getElementById('sessionSetInfo').textContent = ENCOURAGE[Math.floor(Math.random() * ENCOURAGE.length)];
+  document.getElementById('sessionRest').hidden = true;
+  document.getElementById('sessionSkipBtn').hidden = true;
+  document.getElementById('sessionDoneBtn').hidden = true;
+  document.getElementById('sessionEndBtn').textContent = '关闭';
+  sessionState.active = false;
+  markCheckin(dateKey(new Date()));
+  renderVolume();
+}
+
+function closeSession() {
+  if (sessionState.active && sessionState.done > 0 && !confirm('训练尚未完成，确定要结束吗？')) return;
+  if (sessionState.restInterval) { clearInterval(sessionState.restInterval); sessionState.restInterval = null; }
+  document.getElementById('sessionOverlay').hidden = true;
+  document.body.classList.remove('no-scroll');
+  document.getElementById('sessionDoneBtn').hidden = false;
+  document.getElementById('sessionEndBtn').textContent = '结束训练';
+}
+
+function getSessions() {
+  try { return JSON.parse(localStorage.getItem('fitplan-sessions')) || []; } catch (e) { return []; }
+}
+
+function saveSessions(list) {
+  try { localStorage.setItem('fitplan-sessions', JSON.stringify(list)); } catch (e) { /* 忽略 */ }
+}
+
+function markCheckin(dateStr) {
+  const checkins = getCheckins();
+  if (!checkins[dateStr]) {
+    checkins[dateStr] = 1;
+    saveCheckins(checkins);
+    renderCalendar(currentPlan);
+  }
+}
+
+let editing = null;
+
+function openEditOverlay(dayIdx, exIdx) {
+  editing = { dayIdx, exIdx };
+  const day = currentPlan.days[dayIdx];
+  const ex = day.exercises[exIdx];
+  const nameSel = document.getElementById('editName');
+  nameSel.innerHTML = EXERCISE_LIBRARY.map((e) =>
+    `<option value="${e.name.replace(/"/g, '&quot;')}">${e.name}</option>`).join('');
+  nameSel.value = ex.name;
+  document.getElementById('editMuscle').value = ex.muscle;
+  document.getElementById('editSets').value = ex.sets;
+  document.getElementById('editReps').value = ex.reps;
+  document.getElementById('editRest').value = ex.rest;
+  document.getElementById('editTip').value = ex.tip;
+  document.getElementById('editOverlay').hidden = false;
+  document.body.classList.add('no-scroll');
+}
+
+function saveEdit() {
+  if (!editing) return;
+  const { dayIdx, exIdx } = editing;
+  const day = currentPlan.days[dayIdx];
+  const ex = day.exercises[exIdx];
+  const name = document.getElementById('editName').value;
+  const lib = EXERCISE_LIBRARY.find((e) => e.name === name);
+  ex.name = name;
+  ex.muscle = document.getElementById('editMuscle').value || (lib ? lib.muscle : '全身');
+  ex.sets = Math.max(1, Number(document.getElementById('editSets').value) || 3);
+  ex.reps = document.getElementById('editReps').value || '8-12';
+  ex.rest = document.getElementById('editRest').value || '90 秒';
+  ex.tip = document.getElementById('editTip').value || (lib ? lib.tip : '');
+  ex.mistake = mistakeFor(name);
+  persistCustomDay(day);
+  closeEditOverlay();
+  renderTraining(currentPlan);
+  showToast('动作已更新并保存');
+}
+
+function deleteExercise(dayIdx, exIdx) {
+  const day = currentPlan.days[dayIdx];
+  if (day.exercises.length <= 1) { showToast('至少保留 1 个动作'); return; }
+  if (!confirm(`确定删除「${day.exercises[exIdx].name}」吗？`)) return;
+  day.exercises.splice(exIdx, 1);
+  persistCustomDay(day);
+  renderTraining(currentPlan);
+  showToast('已删除动作');
+}
+
+function persistCustomDay(day) {
+  const customPlan = getCustomPlan();
+  if (!currentPlan.key) return;
+  if (!customPlan[currentPlan.key]) customPlan[currentPlan.key] = {};
+  customPlan[currentPlan.key][day.key] = day.exercises.map((e) => ({
+    name: e.name, muscle: e.muscle, sets: e.sets, reps: e.reps, rest: e.rest, tip: e.tip,
+  }));
+  saveCustomPlan(customPlan);
+}
+
+function closeEditOverlay() {
+  editing = null;
+  document.getElementById('editOverlay').hidden = true;
+  document.body.classList.remove('no-scroll');
+}
+
+function toggleVolume() {
+  setVolumeFactor(getVolumeFactor() === 'light' ? 'full' : 'light');
+  const input = getInput();
+  if (!input) return;
+  generate();
+  showToast(getVolumeFactor() === 'light' ? '已降低训练容量（每组减 1 组）' : '已恢复标准训练容量');
+}
+
+/* ---------------- 单位切换 ---------------- */
+
+function getUnits() {
+  try {
+    return JSON.parse(localStorage.getItem('fitplan-units')) || { weight: 'kg', height: 'cm' };
+  } catch (e) { return { weight: 'kg', height: 'cm' }; }
+}
+
+function saveUnits(u) {
+  try { localStorage.setItem('fitplan-units', JSON.stringify(u)); } catch (e) { /* 忽略 */ }
+}
+
+function applyUnitsUI() {
+  const u = getUnits();
+  document.querySelectorAll('#weightUnitSeg .seg-btn').forEach((b) =>
+    b.classList.toggle('active', b.dataset.unit === u.weight));
+  document.querySelectorAll('#heightUnitSeg .seg-btn').forEach((b) =>
+    b.classList.toggle('active', b.dataset.unit === u.height));
+  const hField = document.getElementById('height');
+  const wField = document.getElementById('weight');
+  if (hField) {
+    const label = hField.closest('.field').querySelector('.field-label');
+    if (label) label.textContent = u.height === 'ft' ? '身高（英尺）' : '身高（cm）';
+  }
+  if (wField) {
+    const label = wField.closest('.field').querySelector('.field-label');
+    if (label) label.textContent = u.weight === 'jin' ? '体重（斤）' : '体重（kg）';
+  }
+  const tgt = document.getElementById('targetWeight');
+  if (tgt) {
+    tgt.placeholder = u.weight === 'jin' ? '目标体重（斤）' : '目标体重（kg）';
+    tgt.value = '';
+    const saved = getTargetWeight();
+    if (saved != null) tgt.value = u.weight === 'jin' ? Math.round(saved * 2 * 10) / 10 : saved;
+  }
+  const kgInput = document.getElementById('weightKg');
+  if (kgInput) {
+    const label = kgInput.closest('.field').querySelector('.field-label');
+    if (label) label.textContent = u.weight === 'jin' ? '体重（斤）' : '体重（kg）';
+  }
+}
+
 /* ---------------- 日历与提醒 ---------------- */
 
 const WEEKDAY_NAMES = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
@@ -758,6 +1474,7 @@ const MUSCLE_ORDER = ['胸', '背', '肩', '二头', '三头', '腿前', '臀·�
 let calendarYear = new Date().getFullYear();
 let calendarMonth = new Date().getMonth();
 let currentPlan = null;
+let lastInput = null;
 let reminderSettings = { weekdays: null, time: '19:00', leadMin: 30, enabled: false, customized: false };
 
 /* 根据动作的肌群描述归入主要肌群 */
@@ -775,17 +1492,25 @@ function muscleGroupOf(muscle) {
   return '其他';
 }
 
-/* 统计一周内各主要肌群的训练次数 */
+/* 统计一周内各主要肌群的训练频率（按训练日计）+ 动作数量 */
 function computeCoverage(days) {
-  const counts = {};
-  MUSCLE_ORDER.forEach((g) => { counts[g] = 0; });
-  days.forEach((d) => d.exercises.forEach((ex) => {
-    const g = muscleGroupOf(ex.muscle);
-    if (g in counts) counts[g]++;
-  }));
+  const sessions = {};
+  const exCounts = {};
+  MUSCLE_ORDER.forEach((g) => { sessions[g] = 0; exCounts[g] = 0; });
+  days.forEach((d) => {
+    const dayGroups = new Set();
+    d.exercises.forEach((ex) => {
+      const g = muscleGroupOf(ex.muscle);
+      if (g in sessions) {
+        dayGroups.add(g);
+        exCounts[g]++;
+      }
+    });
+    dayGroups.forEach((g) => { sessions[g]++; });
+  });
   return MUSCLE_ORDER
-    .map((g) => ({ group: g, count: counts[g] }))
-    .filter((c) => c.count > 0);
+    .map((g) => ({ group: g, sessions: sessions[g], exercises: exCounts[g] }))
+    .filter((c) => c.exercises > 0);
 }
 
 function saveSettings() {
@@ -1107,15 +1832,19 @@ function generate() {
   if (!input) return;
   const targets = calcTargets(input);
   const workout = buildWorkoutPlan(input);
-  const diet = buildDietPlan(input, targets);
+  let proteinSource = null;
+  try { proteinSource = localStorage.getItem('fitplan-protein-source'); } catch (e) { /* 忽略 */ }
+  const diet = buildDietPlan(input, targets, proteinSource);
 
   currentPlan = workout;
+  lastInput = input;
   renderStats(input, targets);
   renderTraining(workout);
   renderDiet(diet, targets, input);
   renderFoods();
   populateFoodUI();
   renderCalendar(workout);
+  renderWeight();
 
   document.getElementById('homeResults').hidden = false;
   document.getElementById('saveNote').textContent = '计划已生成并自动保存在本机浏览器中';
@@ -1311,29 +2040,48 @@ function renderWeight() {
   const wrap = document.getElementById('weightList');
   if (!wrap) return;
   const list = getWeights().sort((a, b) => (a.date < b.date ? -1 : 1));
+  const units = getUnits();
+  const wUnit = units.weight === 'jin' ? '斤' : 'kg';
+  const fmt = (kg) => units.weight === 'jin' ? (Math.round(kg * 2 * 10) / 10) : kg;
   wrap.innerHTML = list.length
     ? [...list].reverse().map((w) => `
         <div class="weight-item">
           <span>${w.date}${w.bf != null ? ` · 体脂 ${w.bf}%` : ''}</span>
-          <b>${w.kg} kg</b>
+          <b>${fmt(w.kg)} ${wUnit}</b>
         </div>`).join('')
     : '<p class="demo-note">还没有记录，输入日期和体重后点「记录」。</p>';
 
   const tip = document.getElementById('weightTip');
   let expected = null;
   try {
-    const profile = JSON.parse(localStorage.getItem('fitplan-profile'));
+    const profile = lastInput || JSON.parse(localStorage.getItem('fitplan-profile'));
     if (profile && profile.goal === 'cut') {
       const t = calcTargets(profile);
       const deficit = t.tdee - t.calories;
       expected = deficit / 7700; // 约 7700 kcal ≈ 1kg 脂肪
-      tip.textContent = `当前热量缺口约 ${deficit} kcal/天，按理论预期每周约减 ${(expected * 7).toFixed(2)} kg；曲线中的橙色虚线为参考线。`;
+      const target = getTargetWeight();
+      let pred = '';
+      if (target && list.length && target < list[list.length - 1].kg && expected > 0) {
+        const weeks = (list[list.length - 1].kg - target) / (expected * 7);
+        const d = new Date(Date.now() + weeks * 7 * 86400000);
+        pred = `按当前缺口，预计 ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} 前后到达目标体重（${fmt(target)} ${wUnit}）。`;
+      }
+      tip.textContent = `当前热量缺口约 ${deficit} kcal/天，按理论预期每周约减 ${(expected * 7 * 2).toFixed(1)} 斤（${(expected * 7).toFixed(2)} kg）；橙色虚线为参考线。${pred}`;
     } else {
-      tip.textContent = '当前目标为增肌/保持，体重参考线不适用，观察长期趋势即可。';
+      const target = getTargetWeight();
+      tip.textContent = target != null
+        ? `当前目标体重 ${fmt(target)} ${wUnit}，观察长期趋势即可；完成训练后「训练容量趋势」会显示你的训练量变化。`
+        : '当前目标为增肌/保持，体重参考线不适用；完成训练后「训练容量趋势」会显示你的训练量变化。';
     }
   } catch (e) { tip.textContent = ''; }
 
   drawWeightChart(list, expected);
+  renderVolume();
+  const tgtInput = document.getElementById('targetWeight');
+  if (tgtInput) {
+    const saved = getTargetWeight();
+    tgtInput.value = saved != null ? fmt(saved) : '';
+  }
 }
 
 function drawWeightChart(list, expectedKgPerDay) {
@@ -1351,8 +2099,10 @@ function drawWeightChart(list, expectedKgPerDay) {
   ctx.lineWidth = 1;
 
   const kgs = list.map((w) => w.kg);
-  let yMin = Math.floor(Math.min(...kgs) - 1);
-  let yMax = Math.ceil(Math.max(...kgs) + 1);
+  const target = getTargetWeight();
+  const allKgs = target != null ? [...kgs, target] : kgs;
+  let yMin = Math.floor(Math.min(...allKgs) - 1);
+  let yMax = Math.ceil(Math.max(...allKgs) + 1);
   if (yMax - yMin < 4) { const mid = (yMax + yMin) / 2; yMin = mid - 2; yMax = mid + 2; }
   const y = (v) => padT + innerH - ((v - yMin) / (yMax - yMin)) * innerH;
   const x = (i) => (list.length === 1 ? padL + innerW / 2 : padL + (i / (list.length - 1)) * innerW);
@@ -1386,10 +2136,73 @@ function drawWeightChart(list, expectedKgPerDay) {
   ctx.beginPath();
   list.forEach((w, i) => { const px = x(i), py = y(w.kg); i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py); });
   ctx.stroke();
+  if (target != null) {
+    ctx.save();
+    ctx.setLineDash([8, 5]);
+    ctx.strokeStyle = '#6366f1';
+    ctx.lineWidth = 2;
+    const ty = y(target);
+    ctx.beginPath(); ctx.moveTo(padL, ty); ctx.lineTo(W - padR, ty); ctx.stroke();
+    ctx.restore();
+    const units = getUnits();
+    const tUnit = units.weight === 'jin' ? '斤' : 'kg';
+    const tVal = units.weight === 'jin' ? (Math.round(target * 2 * 10) / 10) : target;
+    ctx.fillStyle = '#6366f1';
+    ctx.fillText(`目标 ${tVal}${tUnit}`, W - padR - 70, ty - 6);
+  }
   list.forEach((w, i) => {
     const px = x(i), py = y(w.kg);
     ctx.beginPath(); ctx.arc(px, py, 3.5, 0, Math.PI * 2); ctx.fillStyle = '#0e9f6e'; ctx.fill();
     ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI * 2); ctx.fill();
+  });
+}
+
+function getTargetWeight() {
+  try { return localStorage.getItem('fitplan-target-weight'); } catch (e) { return null; }
+}
+
+function renderVolume() {
+  const canvas = document.getElementById('volumeChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const sessions = getSessions();
+  const listEl = document.getElementById('sessionList');
+  if (!sessions.length) {
+    if (listEl) listEl.innerHTML = '<p class="demo-note">还没有训练记录。在「训练」页点击「开始训练」完成一次训练后，这里会显示容量趋势。</p>';
+    return;
+  }
+  const byDate = {};
+  sessions.forEach((s) => { byDate[s.date] = (byDate[s.date] || 0) + s.sets; });
+  const dates = Object.keys(byDate).sort();
+  if (listEl) {
+    listEl.innerHTML = [...dates].reverse().slice(0, 7)
+      .map((d) => `<div class="session-item"><span>${d}</span><b>${byDate[d]} 组</b></div>`).join('');
+  }
+  const padL = 36, padR = 12, padT = 14, padB = 24;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const maxV = Math.max(...dates.map((d) => byDate[d]));
+  ctx.font = '11px sans-serif';
+  ctx.fillStyle = '#8b9b93';
+  ctx.strokeStyle = '#c9d6d0';
+  ctx.lineWidth = 1;
+  for (let v = 0; v <= maxV; v += Math.max(1, Math.ceil(maxV / 4))) {
+    const yy = padT + innerH - (v / maxV) * innerH;
+    ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(W - padR, yy); ctx.stroke();
+    ctx.fillText(String(v), 6, yy + 4);
+  }
+  const bw = Math.min(30, innerW / dates.length * 0.6);
+  dates.forEach((d, i) => {
+    const cx = padL + (i + 0.5) * (innerW / dates.length);
+    const bh = (byDate[d] / maxV) * innerH;
+    ctx.fillStyle = '#0e9f6e';
+    ctx.fillRect(cx - bw / 2, padT + innerH - bh, bw, bh);
+    if (dates.length <= 14) {
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#8b9b93';
+      ctx.fillText(d.slice(5), cx, H - 8);
+    }
   });
 }
 
@@ -1441,6 +2254,74 @@ function clearAllData() {
   location.reload();
 }
 
+/* ---------------- 饮水提醒 ---------------- */
+
+let waterSettings = { enabled: false, intervalMin: 60 };
+
+function getWaterSettings() {
+  try { return JSON.parse(localStorage.getItem('fitplan-water')) || { enabled: false, intervalMin: 60 }; } catch (e) { return { enabled: false, intervalMin: 60 }; }
+}
+
+function saveWaterSettings() {
+  try { localStorage.setItem('fitplan-water', JSON.stringify(waterSettings)); } catch (e) { /* 忽略 */ }
+}
+
+function renderWaterStatus() {
+  const el = document.getElementById('waterStatus');
+  if (!el) return;
+  el.textContent = waterSettings.enabled
+    ? `饮水提醒已开启：每 ${waterSettings.intervalMin} 分钟提醒一次（8:00-22:00，页面打开时生效）。`
+    : '未开启饮水提醒。开启后会在浏览器中定时弹出喝水通知。';
+  const btn = document.getElementById('waterBtn');
+  if (btn) btn.textContent = waterSettings.enabled ? '关闭饮水提醒' : '开启饮水提醒';
+}
+
+function checkWater() {
+  if (!waterSettings.enabled) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const now = new Date();
+  if (now.getHours() < 8 || now.getHours() > 22) return;
+  let last = 0;
+  try { last = Number(localStorage.getItem('fitplan-water-last')) || 0; } catch (e) { /* 忽略 */ }
+  if (now.getTime() - last < waterSettings.intervalMin * 60000) return;
+  try { localStorage.setItem('fitplan-water-last', String(now.getTime())); } catch (e) { /* 忽略 */ }
+  try {
+    new Notification('FitPlan · 饮水提醒 💧', { body: '该喝水啦！建议每次 200-300ml，全天少量多次。' });
+  } catch (e) { /* 忽略 */ }
+}
+
+/* ---------------- JSON 备份 ---------------- */
+
+function exportData() {
+  const data = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('fitplan-')) data[k] = localStorage.getItem(k);
+  }
+  const payload = JSON.stringify({ app: 'FitPlan', savedAt: new Date().toISOString(), data }, null, 2);
+  downloadBlob(new Blob([payload], { type: 'application/json' }), `fitplan-backup-${dateKey(new Date())}.json`);
+  showToast('已导出备份文件');
+}
+
+function importData(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const obj = JSON.parse(reader.result);
+      const data = obj && obj.data ? obj.data : obj;
+      let n = 0;
+      Object.entries(data).forEach(([k, v]) => {
+        if (k.startsWith('fitplan-')) { localStorage.setItem(k, v); n++; }
+      });
+      showToast(`已导入 ${n} 项数据，正在刷新…`);
+      setTimeout(() => location.reload(), 900);
+    } catch (e) {
+      showToast('导入失败：文件格式不正确');
+    }
+  };
+  reader.readAsText(file);
+}
+
 /* ---------------- 事件绑定 ---------------- */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1452,7 +2333,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const goto = e.target.closest('[data-goto]');
-    if (goto) switchView(goto.dataset.goto);
+    if (goto) {
+      switchView(goto.dataset.goto);
+      return;
+    }
+    const cite = e.target.closest('a[href="#refs"]');
+    if (cite) switchView('settings');
   });
 
   // 全局错误提示：任何运行时错误都会显示在首页表单下方
@@ -1479,18 +2365,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('generateBtn').addEventListener('click', generate);
 
-  // 训练折叠 + 计时器按钮（事件委托）
+  // 训练折叠 + 计时器 + 开始训练 + 编辑/删除动作（事件委托）
   document.addEventListener('click', (e) => {
-    const head = e.target.closest('.day-head');
-    if (head) {
-      const card = head.closest('.day-card');
+    const toggle = e.target.closest('.day-toggle');
+    if (toggle) {
+      const card = toggle.closest('.day-card');
       const open = card.classList.toggle('open');
-      head.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-expanded', String(open));
       return;
     }
     const timerBtn = e.target.closest('.timer-btn');
     if (timerBtn) {
       openTimer(Number(timerBtn.dataset.rest));
+      return;
+    }
+    const startBtn = e.target.closest('.start-session-btn');
+    if (startBtn) {
+      startSession(Number(startBtn.dataset.dayIdx));
+      return;
+    }
+    const editBtn = e.target.closest('[data-edit-ex]');
+    if (editBtn) {
+      const [di, ei] = editBtn.dataset.editEx.split('|').map(Number);
+      openEditOverlay(di, ei);
+      return;
+    }
+    const delBtn = e.target.closest('[data-del-ex]');
+    if (delBtn) {
+      const [di, ei] = delBtn.dataset.delEx.split('|').map(Number);
+      deleteExercise(di, ei);
+      return;
+    }
+    const reduceBtn = e.target.closest('#reduceVolumeBtn');
+    if (reduceBtn) {
+      toggleVolume();
     }
   });
 
@@ -1510,6 +2418,57 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTimer();
   });
   document.getElementById('timerClose').addEventListener('click', closeTimer);
+
+  // 沉浸式训练模式
+  document.getElementById('sessionDoneBtn').addEventListener('click', sessionDone);
+  document.getElementById('sessionSkipBtn').addEventListener('click', sessionSkip);
+  document.getElementById('sessionEndBtn').addEventListener('click', () => {
+    if (sessionState.active) finishSession(); else closeSession();
+  });
+  document.getElementById('sessionClose').addEventListener('click', closeSession);
+
+  // 动作编辑浮层
+  document.getElementById('editSaveBtn').addEventListener('click', saveEdit);
+  document.getElementById('editCancelBtn').addEventListener('click', closeEditOverlay);
+  document.getElementById('editCloseBtn').addEventListener('click', closeEditOverlay);
+  document.getElementById('editName').addEventListener('change', () => {
+    const lib = EXERCISE_LIBRARY.find((x) => x.name === document.getElementById('editName').value);
+    if (lib) {
+      document.getElementById('editMuscle').value = lib.muscle;
+      if (!document.getElementById('editTip').value) document.getElementById('editTip').value = lib.tip;
+    }
+  });
+
+  // 热量缺口 / 盈余滑块实时重算
+  const deficitSlider = document.getElementById('deficitSlider');
+  if (deficitSlider) {
+    deficitSlider.addEventListener('input', () => {
+      document.getElementById('deficitValue').textContent = deficitSlider.value + '%';
+      generate();
+    });
+  }
+
+  // 蛋白质来源替换 + 购物清单复制
+  document.addEventListener('click', (e) => {
+    const srcBtn = e.target.closest('.protein-src-btn');
+    if (srcBtn) {
+      try { localStorage.setItem('fitplan-protein-source', srcBtn.dataset.protein); } catch (err) { /* 忽略 */ }
+      generate();
+      return;
+    }
+    const copyBtn = e.target.closest('#copyShopBtn');
+    if (copyBtn) {
+      const list = document.querySelector('#dietContent .shopping-list');
+      if (list) {
+        const text = [...list.querySelectorAll('li')]
+          .map((li) => `${li.querySelector('span').textContent}：${li.querySelector('b').textContent}`).join('\n');
+        navigator.clipboard.writeText('FitPlan 一周购物清单\n' + text)
+          .then(() => showToast('购物清单已复制 ✓'))
+          .catch(() => showToast('复制失败，请长按手动复制'));
+      }
+      return;
+    }
+  });
 
   // 自定义食材（表单每次渲染后重建，用事件委托）
   document.addEventListener('submit', (e) => {
@@ -1556,7 +2515,8 @@ document.addEventListener('DOMContentLoaded', () => {
     weightForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const date = document.getElementById('weightDate').value;
-      const kg = Number(document.getElementById('weightKg').value);
+      const raw = Number(document.getElementById('weightKg').value);
+      const kg = getUnits().weight === 'jin' ? raw / 2 : raw;
       const bfRaw = document.getElementById('bodyFat').value;
       const bf = bfRaw === '' ? null : Number(bfRaw);
       if (!date || !kg) return;
@@ -1566,7 +2526,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('weightKg').value = '';
       document.getElementById('bodyFat').value = '';
       renderWeight();
-      showToast(`已记录 ${date} 体重 ${kg}kg`);
+      showToast(`已记录 ${date} 体重 ${getUnits().weight === 'jin' ? raw + ' 斤' : kg + 'kg'}`);
     });
   }
 
@@ -1582,6 +2542,78 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('csvExportBtn').addEventListener('click', exportCsv);
   document.getElementById('icsExportBtn').addEventListener('click', () => exportIcs(currentPlan));
 
+  // 饮水提醒
+  document.getElementById('waterBtn').addEventListener('click', async () => {
+    if (!('Notification' in window)) {
+      showToast('当前浏览器不支持通知，无法开启饮水提醒');
+      return;
+    }
+    if (!waterSettings.enabled && 'Notification' in window && Notification.permission === 'default') {
+      const perm = await Notification.requestPermission();
+      if (perm !== 'granted') { showToast('未授权通知，无法开启饮水提醒'); return; }
+    }
+    waterSettings.enabled = !waterSettings.enabled;
+    saveWaterSettings();
+    renderWaterStatus();
+    showToast(waterSettings.enabled ? '饮水提醒已开启 💧' : '饮水提醒已关闭');
+  });
+  document.getElementById('waterInterval').addEventListener('change', (e) => {
+    waterSettings.intervalMin = Number(e.target.value);
+    saveWaterSettings();
+    renderWaterStatus();
+  });
+
+  // 单位切换
+  document.querySelectorAll('#weightUnitSeg .seg-btn').forEach((b) => {
+    b.addEventListener('click', () => {
+      const u = getUnits();
+      u.weight = b.dataset.unit;
+      saveUnits(u);
+      applyUnitsUI();
+      generate();
+    });
+  });
+  document.querySelectorAll('#heightUnitSeg .seg-btn').forEach((b) => {
+    b.addEventListener('click', () => {
+      const u = getUnits();
+      u.height = b.dataset.unit;
+      saveUnits(u);
+      applyUnitsUI();
+      generate();
+    });
+  });
+
+  // 数据备份
+  document.getElementById('exportDataBtn').addEventListener('click', exportData);
+  document.getElementById('importDataBtn').addEventListener('click', () => document.getElementById('importDataFile').click());
+  document.getElementById('importDataFile').addEventListener('change', (e) => {
+    if (e.target.files && e.target.files[0]) importData(e.target.files[0]);
+    e.target.value = '';
+  });
+
+  // 目标体重
+  document.getElementById('saveTargetBtn').addEventListener('click', () => {
+    const v = document.getElementById('targetWeight').value;
+    if (v === '') {
+      localStorage.removeItem('fitplan-target-weight');
+      renderWeight();
+      showToast('已清除目标体重');
+      return;
+    }
+    const units = getUnits();
+    const kg = units.weight === 'jin' ? Number(v) / 2 : Number(v);
+    localStorage.setItem('fitplan-target-weight', kg);
+    renderWeight();
+    showToast('目标体重已保存');
+  });
+
+  // 回到顶部
+  const backBtn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backBtn.classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+  backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
   // 恢复上次保存的资料
   try {
     const saved = JSON.parse(localStorage.getItem('fitplan-profile'));
@@ -1595,7 +2627,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('goal').value = saved.goal;
       document.getElementById('days').value = saved.days;
       document.getElementById('experience').value = saved.experience;
-      document.getElementById('diet').value = saved.diet;
+      document.getElementById('diet').value = saved.diet || 'normal';
+      document.getElementById('equipment').value = saved.equipment || 'gym';
+      if (saved.bodyFat != null) document.getElementById('bodyFatInput').value = saved.bodyFat;
+      const units = getUnits();
+      if (units.weight === 'jin') document.getElementById('weight').value = Math.round(saved.weight * 2 * 10) / 10;
+      if (units.height === 'ft') document.getElementById('height').value = Math.round(saved.height / 30.48 * 100) / 100;
     }
   } catch (e) { /* 忽略损坏的缓存 */ }
 
@@ -1613,10 +2650,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (e) { /* 忽略损坏的缓存 */ }
 
+  // 恢复饮水提醒设置
+  waterSettings = getWaterSettings();
+  renderWaterStatus();
+
+  // 单位 UI
+  applyUnitsUI();
+
   // 每 30 秒检查一次提醒（训练时间前触发桌面通知）
   setInterval(checkReminders, 30000);
+  setInterval(checkWater, 30000);
 
-  renderWeight();
   setTheme(document.documentElement.getAttribute('data-theme') === 'dark');
 
   // 首次进入直接生成一次示例计划
