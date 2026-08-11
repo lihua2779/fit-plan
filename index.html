@@ -2,152 +2,205 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>FitPlan · 健身与饮食计划助手</title>
-  <meta name="theme-color" content="#5b5bd6" />
-  <meta name="description" content="根据身体数据自动生成个性化健身训练计划与饮食方案，支持日历提醒。" />
+  <meta name="theme-color" content="#0e9f6e" />
+  <meta name="description" content="根据身体数据自动生成个性化健身训练计划与饮食方案，支持体重追踪、训练打卡与日历提醒。" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" type="image/png" href="img/icon-192.png" />
   <link rel="apple-touch-icon" href="img/icon-192.png" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    // 提前应用主题与字号，避免闪烁
+    (function () {
+      try {
+        var t = localStorage.getItem('fitplan-theme');
+        if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        var f = Number(localStorage.getItem('fitplan-font')) || 16;
+        document.documentElement.style.fontSize = f + 'px';
+      } catch (e) { /* 忽略 */ }
+    })();
+  </script>
 </head>
 <body>
   <header class="hero">
     <div class="hero-inner">
       <div class="hero-text">
         <h1>FitPlan <span>健身与饮食计划助手</span></h1>
-        <p>输入你的身体数据与目标，自动生成个性化训练计划和每日饮食方案。</p>
-      </div>
-      <div class="hero-badges">
-        <span>科学计算</span>
-        <span>训练 + 饮食</span>
-        <span>可打印</span>
+        <p>输入身体数据自动生成训练与饮食方案；支持体重追踪、训练打卡与日历提醒。</p>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <!-- 左侧：基本信息表单 -->
-    <section class="panel form-panel" id="formPanel">
-      <h2 class="panel-title">基本信息</h2>
-
-      <div class="form-row">
+    <!-- 首页：计算器 -->
+    <section id="view-home" class="view active" aria-label="首页计算器">
+      <div class="panel form-panel">
+        <h2 class="panel-title">基本信息</h2>
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">性别</span>
+            <div class="segmented">
+              <button type="button" class="seg-btn active" data-value="male" data-target="sex">男</button>
+              <button type="button" class="seg-btn" data-value="female" data-target="sex">女</button>
+            </div>
+          </label>
+          <label class="field">
+            <span class="field-label">年龄</span>
+            <input type="number" id="age" min="14" max="90" value="25" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">身高（cm）</span>
+            <input type="number" id="height" min="120" max="230" value="175" />
+          </label>
+          <label class="field">
+            <span class="field-label">体重（kg）</span>
+            <input type="number" id="weight" min="30" max="200" value="70" />
+          </label>
+        </div>
         <label class="field">
-          <span class="field-label">性别</span>
-          <div class="segmented">
-            <button type="button" class="seg-btn active" data-value="male" data-target="sex">男</button>
-            <button type="button" class="seg-btn" data-value="female" data-target="sex">女</button>
-          </div>
-        </label>
-        <label class="field">
-          <span class="field-label">年龄</span>
-          <input type="number" id="age" min="14" max="90" value="25" />
-        </label>
-      </div>
-
-      <div class="form-row">
-        <label class="field">
-          <span class="field-label">身高（cm）</span>
-          <input type="number" id="height" min="120" max="230" value="175" />
-        </label>
-        <label class="field">
-          <span class="field-label">体重（kg）</span>
-          <input type="number" id="weight" min="30" max="200" value="70" />
-        </label>
-      </div>
-
-      <label class="field">
-        <span class="field-label">日常活动水平</span>
-        <select id="activity">
-          <option value="sedentary">久坐少动（办公室工作，几乎不运动）</option>
-          <option value="light" selected>轻度活动（每周 1–3 次训练）</option>
-          <option value="moderate">中度活动（每周 3–5 次训练）</option>
-          <option value="active">高度活动（每周 6–7 次训练）</option>
-          <option value="athlete">极高强度（体力工作 + 每天训练）</option>
-        </select>
-      </label>
-
-      <div class="form-row">
-        <label class="field">
-          <span class="field-label">健身目标</span>
-          <select id="goal">
-            <option value="cut" selected>减脂（减重、降低体脂）</option>
-            <option value="bulk">增肌（增加肌肉量）</option>
-            <option value="maintain">保持 / 塑形</option>
+          <span class="field-label">日常活动水平</span>
+          <select id="activity">
+            <option value="sedentary">久坐少动（办公室工作，几乎不运动）</option>
+            <option value="light" selected>轻度活动（每周 1–3 次训练）</option>
+            <option value="moderate">中度活动（每周 3–5 次训练）</option>
+            <option value="active">高度活动（每周 6–7 次训练）</option>
+            <option value="athlete">极高强度（体力工作 + 每天训练）</option>
           </select>
         </label>
-        <label class="field">
-          <span class="field-label">每周训练天数</span>
-          <select id="days">
-            <option value="2">2 天</option>
-            <option value="3" selected>3 天</option>
-            <option value="4">4 天</option>
-            <option value="5">5 天</option>
-            <option value="6">6 天</option>
-          </select>
-        </label>
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">健身目标</span>
+            <select id="goal">
+              <option value="cut" selected>减脂（减重、降低体脂）</option>
+              <option value="bulk">增肌（增加肌肉量）</option>
+              <option value="maintain">保持 / 塑形</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">每周训练天数</span>
+            <select id="days">
+              <option value="2">2 天</option>
+              <option value="3" selected>3 天</option>
+              <option value="4">4 天</option>
+              <option value="5">5 天</option>
+              <option value="6">6 天</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="field">
+            <span class="field-label">训练经验</span>
+            <select id="experience">
+              <option value="beginner" selected>新手（&lt; 6 个月）</option>
+              <option value="intermediate">中级（6 个月 – 2 年）</option>
+              <option value="advanced">高级（2 年以上）</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">饮食偏好</span>
+            <select id="diet">
+              <option value="normal" selected>普通饮食</option>
+              <option value="vegetarian">素食（蛋奶素）</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary btn-lg" id="generateBtn">生成我的计划</button>
+        </div>
+        <p class="form-note" id="saveNote"></p>
       </div>
 
-      <div class="form-row">
-        <label class="field">
-          <span class="field-label">训练经验</span>
-          <select id="experience">
-            <option value="beginner" selected>新手（< 6 个月）</option>
-            <option value="intermediate">中级（6 个月 – 2 年）</option>
-            <option value="advanced">高级（2 年以上）</option>
-          </select>
-        </label>
-        <label class="field">
-          <span class="field-label">饮食偏好</span>
-          <select id="diet">
-            <option value="normal" selected>普通饮食</option>
-            <option value="vegetarian">素食（蛋奶素）</option>
-          </select>
-        </label>
+      <div class="panel results-panel" id="homeResults" hidden>
+        <div class="results-head">
+          <h2 class="panel-title">我的计划</h2>
+          <span class="profile-summary" id="profileSummary"></span>
+        </div>
+        <div class="stat-grid" id="statGrid"></div>
+        <div class="macro-bar" id="macroBar" hidden>
+          <div class="macro-seg seg-protein" id="segProtein"><span>蛋白质</span></div>
+          <div class="macro-seg seg-carbs" id="segCarbs"><span>碳水</span></div>
+          <div class="macro-seg seg-fat" id="segFat"><span>脂肪</span></div>
+        </div>
+        <p class="macro-legend" id="macroLegend"></p>
+        <div class="quick-links">
+          <button type="button" class="btn btn-primary" data-goto="training">查看训练计划 →</button>
+          <button type="button" class="btn btn-primary" data-goto="diet">查看饮食方案 →</button>
+        </div>
       </div>
-
-      <div class="form-actions">
-        <button type="button" class="btn btn-primary" id="generateBtn">生成我的计划</button>
-        <button type="button" class="btn btn-ghost" id="printBtn">打印 / 保存 PDF</button>
-      </div>
-      <p class="form-note" id="saveNote"></p>
     </section>
 
-    <!-- 右侧：结果 -->
-    <section class="panel results-panel" id="resultsPanel" hidden>
-      <div class="results-head">
-        <h2 class="panel-title">我的计划</h2>
-        <span class="profile-summary" id="profileSummary"></span>
+    <!-- 训练计划 + 日历 -->
+    <section id="view-training" class="view" aria-label="训练计划">
+      <div id="trainingContent"></div>
+      <div id="calendarContent"></div>
+    </section>
+
+    <!-- 饮食库 -->
+    <section id="view-diet" class="view" aria-label="饮食库">
+      <div id="dietContent"></div>
+      <div id="foodsContent"></div>
+    </section>
+
+    <!-- 体重追踪 -->
+    <section id="view-weight" class="view" aria-label="体重追踪">
+      <div class="panel">
+        <h2 class="panel-title">体重 / 体脂追踪</h2>
+        <form id="weightForm" class="weight-form">
+          <label class="field">
+            <span class="field-label">日期</span>
+            <input type="date" id="weightDate" required />
+          </label>
+          <label class="field">
+            <span class="field-label">体重（kg）</span>
+            <input type="number" id="weightKg" step="0.1" min="20" max="250" required />
+          </label>
+          <label class="field">
+            <span class="field-label">体脂 %（可选）</span>
+            <input type="number" id="bodyFat" step="0.1" min="3" max="60" placeholder="可选" />
+          </label>
+          <button type="submit" class="btn btn-primary btn-lg">记录</button>
+        </form>
+        <div class="weight-chart-wrap">
+          <canvas id="weightChart" width="700" height="280" aria-label="体重变化曲线"></canvas>
+        </div>
+        <p class="weight-tip" id="weightTip"></p>
+        <div id="weightList" class="weight-list"></div>
       </div>
+    </section>
 
-      <!-- 能量与营养素卡片 -->
-      <div class="stat-grid" id="statGrid"></div>
-
-      <!-- 宏量营养素分配条 -->
-      <div class="macro-bar" id="macroBar" hidden>
-        <div class="macro-seg seg-protein" id="segProtein"><span>蛋白质</span></div>
-        <div class="macro-seg seg-carbs" id="segCarbs"><span>碳水</span></div>
-        <div class="macro-seg seg-fat" id="segFat"><span>脂肪</span></div>
+    <!-- 设置 -->
+    <section id="view-settings" class="view" aria-label="设置">
+      <div class="panel">
+        <h2 class="panel-title">设置</h2>
+        <div class="setting-row">
+          <span class="setting-label">深色模式</span>
+          <button type="button" class="btn btn-ghost" id="themeBtn" aria-pressed="false">切换到深色</button>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">字体大小</span>
+          <div class="segmented" id="fontSeg">
+            <button type="button" class="seg-btn active" data-font="16">标准</button>
+            <button type="button" class="seg-btn" data-font="18">大号</button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label">导出</span>
+          <div class="setting-actions">
+            <button type="button" class="btn btn-primary" id="printTrainingBtn">导出训练计划 PDF</button>
+            <button type="button" class="btn btn-primary" id="printDietBtn">导出每日饮食 PDF</button>
+            <button type="button" class="btn btn-ghost" id="csvExportBtn">导出食材表 CSV</button>
+            <button type="button" class="btn btn-ghost" id="icsExportBtn">导出日历 (.ics)</button>
+          </div>
+        </div>
+        <div class="setting-row danger">
+          <span class="setting-label">清除全部本地数据</span>
+          <button type="button" class="btn btn-danger" id="clearDataBtn">一键清空</button>
+        </div>
+        <p class="notify-status" id="settingsStatus"></p>
       </div>
-      <p class="macro-legend" id="macroLegend"></p>
-
-      <!-- 标签页 -->
-      <div class="tabs" id="tabs">
-        <button class="tab active" data-tab="training">训练计划</button>
-        <button class="tab" data-tab="diet">每日饮食</button>
-        <button class="tab" data-tab="foods">食物参考表</button>
-        <button class="tab" data-tab="calendar">日历与提醒</button>
-      </div>
-
-      <div class="tab-content active" id="tab-training"></div>
-      <div class="tab-content" id="tab-diet"></div>
-      <div class="tab-content" id="tab-foods"></div>
-      <div class="tab-content" id="tab-calendar"></div>
-
-      <div class="disclaimer">
-        温馨提示：以上内容基于通用健身营养学原理估算，仅供参考。如有基础疾病或特殊情况，请在开始训练与调整饮食前咨询医生或注册营养师。
-      </div>
-
       <div class="refs">
         <h4>数据依据（参考文献）</h4>
         <ol>
@@ -159,19 +212,46 @@
           <li>Kerksick CM, et al. ISSN exercise &amp; sports nutrition review update: research &amp; recommendations. <em>J Int Soc Sports Nutr</em>. 2018;15:38.</li>
         </ol>
       </div>
+      <div class="disclaimer">
+        温馨提示：以上内容基于通用健身营养学原理估算，仅供参考。如有基础疾病或特殊情况，请在开始训练与调整饮食前咨询医生或注册营养师。所有数据仅保存在本机浏览器，不会上传。
+      </div>
     </section>
   </main>
 
-  <footer class="footer">
-    FitPlan · 训练与饮食计划助手 — 基于 Mifflin-St Jeor 公式估算基础代谢
-  </footer>
+  <nav class="bottomnav" id="bottomnav" aria-label="底部导航">
+    <button class="nav-btn active" data-view="home" type="button" aria-label="首页计算器"><span class="nav-ico">⌂</span><span>首页</span></button>
+    <button class="nav-btn" data-view="training" type="button" aria-label="训练计划"><span class="nav-ico">▲</span><span>训练</span></button>
+    <button class="nav-btn" data-view="diet" type="button" aria-label="饮食库"><span class="nav-ico">☰</span><span>饮食</span></button>
+    <button class="nav-btn" data-view="weight" type="button" aria-label="体重追踪"><span class="nav-ico">◔</span><span>体重</span></button>
+    <button class="nav-btn" data-view="settings" type="button" aria-label="设置"><span class="nav-ico">⚙</span><span>设置</span></button>
+  </nav>
 
-  <script src="js/app.js"></script>
+  <footer class="footer">FitPlan · 训练与饮食计划助手 — 数据仅保存在本机浏览器</footer>
+
+  <!-- 组间计时器全屏 -->
+  <div class="timer-overlay" id="timerOverlay" hidden role="dialog" aria-label="组间休息计时器">
+    <button class="timer-close" id="timerClose" type="button" aria-label="关闭计时器">×</button>
+    <div class="timer-title" id="timerTitle">组间休息</div>
+    <div class="timer-display" id="timerDisplay" aria-live="polite">90</div>
+    <div class="timer-presets">
+      <button type="button" class="btn timer-preset" data-sec="60">60s</button>
+      <button type="button" class="btn timer-preset active" data-sec="90">90s</button>
+      <button type="button" class="btn timer-preset" data-sec="120">120s</button>
+      <button type="button" class="btn timer-preset" data-sec="150">150s</button>
+    </div>
+    <div class="timer-actions">
+      <button type="button" class="btn btn-primary btn-lg" id="timerToggle">开始</button>
+      <button type="button" class="btn btn-ghost" id="timerReset">重置</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/app.js" defer></script>
   <script>
-    // 部署到 http(s) 环境后启用离线缓存与安装能力（file:// 本地打开时不启用）
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
       });
     }
   </script>
