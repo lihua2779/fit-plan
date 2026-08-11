@@ -6,10 +6,10 @@
   <title>FitPlan · 健身与饮食计划助手</title>
   <meta name="theme-color" content="#0e9f6e" />
   <meta name="description" content="根据身体数据自动生成个性化健身训练计划与饮食方案，支持体重追踪、训练打卡与日历提醒。" />
-  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="manifest" href="manifest.webmanifest?v=20260811" />
   <link rel="icon" type="image/png" href="img/icon-192.png" />
   <link rel="apple-touch-icon" href="img/icon-192.png" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20260811" />
   <script>
     // 提前应用主题与字号，避免闪烁
     (function () {
@@ -254,7 +254,7 @@
     <button class="nav-btn" data-view="settings" type="button" aria-label="设置"><span class="nav-ico">⚙</span><span>设置</span></button>
   </nav>
 
-  <footer class="footer">FitPlan · 训练与饮食计划助手 — 数据仅保存在本机浏览器</footer>
+  <footer class="footer">FitPlan · 训练与饮食计划助手 — 数据仅保存在本机浏览器（v20260811）</footer>
 
   <!-- 组间计时器全屏 -->
   <div class="timer-overlay" id="timerOverlay" hidden role="dialog" aria-label="组间休息计时器">
@@ -275,7 +275,7 @@
 
   <div class="toast" id="toast" hidden></div>
 
-  <script src="js/app.js" defer></script>
+  <script src="js/app.js?v=20260811" defer></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
       window.addEventListener('load', function () {
